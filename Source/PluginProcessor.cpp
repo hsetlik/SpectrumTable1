@@ -168,8 +168,6 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
             thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param"));
             thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param"));
             thisVoice->setAlgChoice(tree.getRawParameterValue("algParam"));
-            if(thisVoice->isVoiceActive())
-                graphValues.setPitch(thisVoice->osc.fundamental);
         }
     }
     graphValues.setNumHarmonics(tree.getRawParameterValue("nParam"));

@@ -61,8 +61,6 @@ void GraphValueSet::setDisplayPoints()
             currentAngles[n] += angleDeltas[n];
         }
         pointsToDisplay[i] = newPointTotal * masterAmplitude;
-        if(newPointTotal != 0.0)
-            printf("nonzero signal\n");
     }
 }
 
@@ -114,6 +112,4 @@ void MaxiOscGraph::paint (juce::Graphics& g)
         auto strokeType = juce::PathStrokeType(1.0f);
         g.strokePath(trace, strokeType);
     }
-    else
-        printf("no wave Points\n");
 }
