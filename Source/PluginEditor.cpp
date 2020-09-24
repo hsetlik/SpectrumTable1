@@ -11,12 +11,12 @@
 
 //==============================================================================
 SpectrumTable1AudioProcessorEditor::SpectrumTable1AudioProcessorEditor (SpectrumTable1AudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor(p), scope(&audioProcessor.scopeSource)
+    : AudioProcessorEditor (&p), audioProcessor(p), graph(&audioProcessor.graphValues)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (800, 600);
-    addAndMakeVisible(&scope);
+    addAndMakeVisible(&graph);
     addAndMakeVisible(&sliderSet);
     sliderSet.attachToTree(&audioProcessor.tree);
    
@@ -39,5 +39,5 @@ void SpectrumTable1AudioProcessorEditor::resized()
 {
     int n = getWidth() / 16;
     sliderSet.setBounds(0, 0, 10 * n, 6 * n);
-    scope.setBounds(3 * n, 5.5 * n, 8 * n, 6 * n);
+    graph.setBounds(3 * n, 5.5 * n, 8 * n, 6 * n);
 }

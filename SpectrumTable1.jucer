@@ -41,6 +41,9 @@
             file="Source/OscilloscopeComponent.cpp"/>
       <FILE id="ais25V" name="OscilloscopeComponent.h" compile="0" resource="0"
             file="Source/OscilloscopeComponent.h"/>
+      <FILE id="Vd3xrw" name="MaxiOscGraph.cpp" compile="1" resource="0"
+            file="Source/MaxiOscGraph.cpp"/>
+      <FILE id="VQ7aht" name="MaxiOscGraph.h" compile="0" resource="0" file="Source/MaxiOscGraph.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

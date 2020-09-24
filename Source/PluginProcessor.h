@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "SpectrumSynthVoice.h"
 #include "OscilloscopeComponent.h"
+#include "MaxiOscGraph.h"
 //==============================================================================
 /**
 */
@@ -55,7 +56,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     SpectrumVoice* thisVoice;
     juce::AudioProcessorValueTreeState tree;
-    OscilloscopeSource scopeSource;
+    GraphValueSet graphValues;
+    
    
 private:
     juce::Synthesiser synth;

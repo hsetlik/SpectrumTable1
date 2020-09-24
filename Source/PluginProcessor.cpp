@@ -41,7 +41,7 @@ SpectrumTable1AudioProcessor::SpectrumTable1AudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), tree(*this, nullptr, "ALLPARAMETERS", createLayout())
+                       ), tree(*this, nullptr, "ALLPARAMETERS", createLayout()), graphValues(40)
 #endif
 {
     for(int i = 0; i < 6; ++i)
@@ -51,12 +51,6 @@ SpectrumTable1AudioProcessor::SpectrumTable1AudioProcessor()
     synth.clearSounds();
     synth.addSound(new SpectrumSound());
     //filling up the source with empty buffers so we have a line at the beginning
-    for(int i = 0; i < 15; ++i)
-    {
-        std::unique_ptr<juce::AudioBuffer<float>> newBuffer(new juce::AudioBuffer<float>(1, 512));
-        scopeSource.addBuffer(*newBuffer);
-    }
-    scopeSource.relevantBuffers.shrink_to_fit();
 }
 
 SpectrumTable1AudioProcessor::~SpectrumTable1AudioProcessor()
@@ -130,7 +124,6 @@ void SpectrumTable1AudioProcessor::prepareToPlay (double rate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    scopeSource.sampleRate = rate;
     juce::ignoreUnused(samplesPerBlock);
     synth.setCurrentPlaybackSampleRate(rate);
 }
@@ -167,7 +160,6 @@ bool SpectrumTable1AudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 
 void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    scopeSource.bufferSize = buffer.getNumSamples();
     for(int i = 0; i < synth.getNumVoices(); ++i)
     {
         if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
@@ -177,12 +169,18 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
             thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param"));
             thisVoice->setAlgChoice(tree.getRawParameterValue("algParam"));
             if(thisVoice->isVoiceActive())
-                scopeSource.fundamental = thisVoice->osc.fundamental;
+                graphValues.setPitch(thisVoice->osc.fundamental);
         }
     }
+    graphValues.setNumHarmonics(tree.getRawParameterValue("nParam"));
+    graphValues.setP0(tree.getRawParameterValue("p0Param"));
+    graphValues.setP1(tree.getRawParameterValue("p1Param"));
+    graphValues.setAlgSelection(tree.getRawParameterValue("algParam"));
     buffer.clear();
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
-    scopeSource.addBuffer(buffer);
+    float masterLevel = buffer.getRMSLevel(0, 0, buffer.getNumSamples());
+    graphValues.setMasterVol(masterLevel);
+    graphValues.setDisplayPoints();
 }
 
 //==============================================================================
