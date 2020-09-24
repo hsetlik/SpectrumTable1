@@ -31,6 +31,7 @@ public:
         relevantBuffers.push_back(bufferToCopy);
         if(relevantBuffers.size() > 15)
             relevantBuffers.pop_front();
+        relevantBuffers.shrink_to_fit();
     }
     bool sourceCreated = false;
     bool buffersAdded = false;
@@ -71,7 +72,7 @@ private:
     OscilloscopeSource* source;
     int numBuffersToGet;
     int samplesPerPoint;
-    std::deque<juce::AudioBuffer<float>> availableBuffers;
+    std::vector<juce::AudioBuffer<float>> availableBuffers;
     std::vector<float> sampleOptions;
     std::vector<float> pointOptions;
     std::vector<float> pointsOnScreen;

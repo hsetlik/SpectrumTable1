@@ -53,7 +53,7 @@ SpectrumTable1AudioProcessor::SpectrumTable1AudioProcessor()
     //filling up the source with empty buffers so we have a line at the beginning
     for(int i = 0; i < 15; ++i)
     {
-        juce::AudioBuffer<float>* newBuffer = new juce::AudioBuffer<float>(1, 512);
+        std::unique_ptr<juce::AudioBuffer<float>> newBuffer(new juce::AudioBuffer<float>(1, 512));
         scopeSource.addBuffer(*newBuffer);
     }
 }
