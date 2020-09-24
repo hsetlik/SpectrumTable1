@@ -17,8 +17,8 @@ HarmonicOscillator::HarmonicOscillator(int maxOvertones) : maxHarmonicCount(maxO
     envelope.setRelease(150);
     for(int i = 0; i < maxHarmonicCount; ++i)
     {
-        HarmonicData* newHarmonic = new HarmonicData(i);
-        maxiOsc* newOsc = new maxiOsc;
+        std::unique_ptr<HarmonicData> newHarmonic(new HarmonicData(i));
+        std::unique_ptr<maxiOsc> newOsc(new maxiOsc);
         harmonics.push_back(*newHarmonic);
         oscillators.push_back(*newOsc);
     }

@@ -64,10 +64,11 @@ public:
             trigger();
             repaint();
         }
+        else
+            samplesPerPoint = 3;
     }
     //data
     bool finishedInitializing = false;
-    
 private:
     OscilloscopeSource* source;
     int numBuffersToGet;

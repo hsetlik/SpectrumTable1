@@ -38,6 +38,7 @@ void OscilloscopeComponent::pullBuffers()
 {
     availableBuffers.clear();
     int startIndex = (int)(source->relevantBuffers.size()) - numBuffersToGet;
+    startIndex -= 1;
     for(int i = 0; i < numBuffersToGet; ++i)
     {
         availableBuffers.push_back(source->relevantBuffers[i + startIndex]);

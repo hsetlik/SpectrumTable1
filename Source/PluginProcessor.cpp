@@ -56,6 +56,7 @@ SpectrumTable1AudioProcessor::SpectrumTable1AudioProcessor()
         std::unique_ptr<juce::AudioBuffer<float>> newBuffer(new juce::AudioBuffer<float>(1, 512));
         scopeSource.addBuffer(*newBuffer);
     }
+    scopeSource.relevantBuffers.shrink_to_fit();
 }
 
 SpectrumTable1AudioProcessor::~SpectrumTable1AudioProcessor()
