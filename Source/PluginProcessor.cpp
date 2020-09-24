@@ -12,20 +12,23 @@
 juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
-    juce::String p0Id = "p0Param";
+    for(int i = 0; i < 3; ++i)
+    {
+        juce::String iStr = juce::String(i);
+    juce::String p0Id = "p0Param" + iStr;
     juce::String p0Name = "Parameter 0";
-    juce::String nId = "nParam";
+    juce::String nId = "nParam" + iStr;
     juce::String nName = "number of harmonics";
-    juce::String p1Id = "p1Param";
+    juce::String p1Id = "p1Param" + iStr;
     juce::String p1Name = "Parameter 2";
-    juce::String algId = "algParam";
+    juce::String algId = "algParam" + iStr;
     juce::String algName = "Serial Amplitude Modulation";
     
     layout.add(std::make_unique<juce::AudioParameterFloat>(nId, nName, 1.0, 40.0, 6.0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(p0Id, p0Name, 0.0, 15.0, 1.0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(p1Id, p1Name, 1.0, 15.0, 1.0));
     layout.add(std::make_unique<juce::AudioParameterBool>(algId, algName, false));
-    
+    }
     return layout;
 }
 
@@ -164,16 +167,26 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     {
         if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
         {
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam"));
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param"));
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param"));
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam"));
+            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam0"));
+            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param0"));
+            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param0"));
+            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam0"));
+            
+            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam1"));
+            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param1"));
+            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param1"));
+            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam1"));
+            
+            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam2"));
+            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param2"));
+            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param2"));
+            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam2"));
         }
     }
-    graphValues.setNumHarmonics(tree.getRawParameterValue("nParam"));
-    graphValues.setP0(tree.getRawParameterValue("p0Param"));
-    graphValues.setP1(tree.getRawParameterValue("p1Param"));
-    graphValues.setAlgSelection(tree.getRawParameterValue("algParam"));
+    graphValues.setNumHarmonics(tree.getRawParameterValue("nParam0"));
+    graphValues.setP0(tree.getRawParameterValue("p0Param0"));
+    graphValues.setP1(tree.getRawParameterValue("p1Param0"));
+    graphValues.setAlgSelection(tree.getRawParameterValue("algParam0"));
     buffer.clear();
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
     float masterLevel = buffer.getRMSLevel(0, 0, buffer.getNumSamples());

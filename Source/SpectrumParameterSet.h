@@ -18,11 +18,12 @@
 class SpectrumParameterSet  : public juce::Component
 {
 public:
-    SpectrumParameterSet();
+    SpectrumParameterSet(int oscillatorIndex);
     ~SpectrumParameterSet() override;
     void attachToTree(juce::AudioProcessorValueTreeState* pTree);
     void paint (juce::Graphics&) override;
     void resized() override;
+    juce::AudioProcessorParameterGroup createParamGroup();
     
     juce::AudioProcessor* audioProcessor;
     juce::Slider nSlider;
@@ -34,6 +35,8 @@ public:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p0Attach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p1Attach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> algAttach;
+    
+    int oscIndex;
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectrumParameterSet)
+    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectrumParameterSet)
 };

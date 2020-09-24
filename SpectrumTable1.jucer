@@ -44,6 +44,10 @@
       <FILE id="Vd3xrw" name="MaxiOscGraph.cpp" compile="1" resource="0"
             file="Source/MaxiOscGraph.cpp"/>
       <FILE id="VQ7aht" name="MaxiOscGraph.h" compile="0" resource="0" file="Source/MaxiOscGraph.h"/>
+      <FILE id="O1eEqL" name="OscillatorGroup.cpp" compile="1" resource="0"
+            file="Source/OscillatorGroup.cpp"/>
+      <FILE id="VE6mUa" name="OscillatorGroup.h" compile="0" resource="0"
+            file="Source/OscillatorGroup.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

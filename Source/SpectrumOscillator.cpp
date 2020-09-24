@@ -11,10 +11,10 @@
 #include "SpectrumOscillator.h"
 HarmonicOscillator::HarmonicOscillator(int maxOvertones) : maxHarmonicCount(maxOvertones)
 {
-    envelope.setAttack(20.0);
-    envelope.setRelease(85.0);
-    envelope.setSustain(0.6);
-    envelope.setRelease(150);
+    envelope1.setAttack(20.0);
+    envelope1.setRelease(85.0);
+    envelope1.setSustain(0.6);
+    envelope1.setRelease(150);
     for(int i = 0; i < maxHarmonicCount; ++i)
     {
         std::unique_ptr<HarmonicData> newHarmonic(new HarmonicData(i));

@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "SpectrumParameterSet.h"
 #include "OscilloscopeComponent.h"
+#include "OscillatorGroup.h"
 
 
 //==============================================================================
@@ -31,6 +32,7 @@ private:
     SpectrumTable1AudioProcessor& audioProcessor;
     MaxiOscGraph graph;
     SpectrumParameterSet sliderSet;
+    OscillatorSet allOscs;
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

@@ -66,12 +66,12 @@ public:
     {
         auto newPitch = juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber);
         osc.fundamental = newPitch;
-        osc.envelope.trigger = 1;
+        osc.envelope1.trigger = 1;
        
     }
     void stopNote (float velocity, bool allowTailOff)
     {
-        osc.envelope.trigger = 0;
+        osc.envelope1.trigger = 0;
         allowTailOff = true;
         if(velocity == 0)
             clearCurrentNote();
@@ -99,14 +99,14 @@ public:
     //===============================================
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
     {
-        osc.envelope.setAttack(25.0f);
-        osc.envelope.setDecay(85.0f);
-        osc.envelope.setSustain(0.6f);
-        osc.envelope.setRelease(250.0f);
+        osc.envelope1.setAttack(25.0f);
+        osc.envelope1.setDecay(85.0f);
+        osc.envelope1.setSustain(0.6f);
+        osc.envelope1.setRelease(250.0f);
         for(int i = 0; i < numSamples; ++i)
         {
             float newPreEnv = osc.getNextSample();
-            float newSample = osc.envelope.adsr(newPreEnv, osc.envelope.trigger);
+            float newSample = osc.envelope1.adsr(newPreEnv, osc.envelope1.trigger);
             for(int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
                 outputBuffer.addSample(channel, startSample, newSample);

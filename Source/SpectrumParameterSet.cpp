@@ -12,7 +12,7 @@
 #include "SpectrumParameterSet.h"
 
 //==============================================================================
-SpectrumParameterSet::SpectrumParameterSet()
+SpectrumParameterSet::SpectrumParameterSet(int index) : oscIndex(index)
 {
     addAndMakeVisible(&nSlider);
     addAndMakeVisible(&p0Slider);
@@ -42,15 +42,40 @@ SpectrumParameterSet::~SpectrumParameterSet()
 {
 }
 
+juce::AudioProcessorParameterGroup SpectrumParameterSet::createParamGroup()
+{
+    juce::String iStr = juce::String(oscIndex);
+    juce::String groupId = "osc" + iStr;
+    juce::String groupName = "Oscillator " + iStr;
+    juce::AudioProcessorParameterGroup newGroup(groupId, groupName, "|");
+    
+    juce::String p0Id = "p0Param" + iStr;
+    juce::String p0Name = "Parameter 0";
+    juce::String nId = "nParam" + iStr;
+    juce::String nName = "number of harmonics";
+    juce::String p1Id = "p1Param" + iStr;
+    juce::String p1Name = "Parameter 2";
+    juce::String algId = "algParam" + iStr;
+    juce::String algName = "Serial Amplitude Modulation";
+    
+    newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(nId, nName, 1.0, 40.0, 6.0));
+    newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p0Id, p0Name, 0.0, 15.0, 1.0));
+    newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p1Id, p1Name, 1.0, 15.0, 1.0));
+    newGroup.addChild(std::make_unique<juce::AudioParameterBool>(algId, algName, false));
+    
+    return newGroup;
+}
+
 void SpectrumParameterSet::attachToTree(juce::AudioProcessorValueTreeState* pTree)
 {
-    nAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "nParam",
+    juce::String iStr = juce::String(oscIndex);
+    nAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "nParam" + iStr,
                                                                                   nSlider));
-    p0Attach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "p0Param",
+    p0Attach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "p0Param" + iStr,
                                                                                   p0Slider));
-    p1Attach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "p1Param",
+    p1Attach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "p1Param" + iStr,
                                                                                   p1Slider));
-    algAttach.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(*pTree, "algParam",
+    algAttach.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(*pTree, "algParam" + iStr,
                                                                                   algButton));
 }
 void SpectrumParameterSet::paint (juce::Graphics& g)

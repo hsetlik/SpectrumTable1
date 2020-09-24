@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-const int pointsPerFrame = 200;
+const int pointsPerFrame = 256;
 //==============================================================================
 /*
 */
