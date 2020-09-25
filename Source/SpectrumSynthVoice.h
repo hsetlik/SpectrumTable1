@@ -37,6 +37,7 @@ public:
             allOscs.push_back(*newOsc);
         }
     }
+    
     //PARAMETER INPUT FUNCTIONS
     void setVoiceP0(std::atomic<float>* value, int index)
     {
@@ -152,6 +153,7 @@ public:
             float sum = 0.0f;
             for(int g = 0; g < 3; ++g)
             {
+                allOscs[g].applyAllModulations();
                 float newPreEnv = allOscs[g].getNextSample();
                 sum += (allOscs[g].envelope1.adsr(newPreEnv, allOscs[g].envelope1.trigger));
             }

@@ -5,6 +5,13 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
+      <GROUP id="{3BFC40B6-DDCB-6F4F-9D6B-CE5B99D53134}" name="ModulationUtil">
+        <FILE id="O4J99h" name="LfoProcessor.h" compile="0" resource="0" file="Source/LfoProcessor.h"/>
+        <FILE id="IVjWHb" name="ModulationHandlers.cpp" compile="1" resource="0"
+              file="Source/ModulationHandlers.cpp"/>
+        <FILE id="k2UJHY" name="ModulationHandlers.h" compile="0" resource="0"
+              file="Source/ModulationHandlers.h"/>
+      </GROUP>
       <GROUP id="{4AD4ACAA-F15F-8D2D-5B7D-DDE745D75487}" name="SoundProcessing">
         <FILE id="scCsoT" name="SpectrumOscillator.cpp" compile="1" resource="0"
               file="Source/SpectrumOscillator.cpp"/>
@@ -14,6 +21,9 @@
               file="Source/SpectrumSynthVoice.h"/>
       </GROUP>
       <GROUP id="{F2BF066C-B7BA-F8BC-0C53-301FB7CC2209}" name="ChildComponents">
+        <FILE id="nQTlaW" name="LFOComponent.cpp" compile="1" resource="0"
+              file="Source/LFOComponent.cpp"/>
+        <FILE id="FLthqt" name="LFOComponent.h" compile="0" resource="0" file="Source/LFOComponent.h"/>
         <FILE id="nIzQOG" name="EnvelopeSliderSet.cpp" compile="1" resource="0"
               file="Source/EnvelopeSliderSet.cpp"/>
         <FILE id="UHDU0w" name="EnvelopeSliderSet.h" compile="0" resource="0"

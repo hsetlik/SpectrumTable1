@@ -54,9 +54,18 @@ public:
     {
         fundamental = newFundamental;
     }
+    void applyAllModulations()
+    {
+        currentP1 += p1Mod;
+        currentP0 += p0Mod;
+        currentHarmonicCount += floor(nMod);
+    }
     float currentP1;
+    float p1Mod = 0.0f;
     float currentP0;
+    float p0Mod = 0.0f;
     int currentHarmonicCount;
+    float nMod = 0.0f;
     int maxHarmonicCount;
     bool secondAlgOn = false;
     bool p1Snap = false;
@@ -65,5 +74,4 @@ public:
     maxiEnv envelope2;
 private:
     float fundamental = 0.0f;
-    
 };

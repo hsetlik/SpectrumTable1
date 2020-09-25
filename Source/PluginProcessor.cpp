@@ -192,6 +192,7 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     {
         if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
         {
+            
             for(int n = 0; n < 3; ++n)
             {
                 juce::String nStr = juce::String(n);

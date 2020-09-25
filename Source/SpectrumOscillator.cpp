@@ -43,7 +43,7 @@ float HarmonicOscillator::getNextSample()
             newFreq = fundamental * harmonics[i].getFrequencyFactor1(currentP1);
             newAmp = harmonics[i].getAmplitudeFactor1(currentP0);
         }
-        float newPreEnv = oscillators[i].sinewave(newFreq);
+        float newPreEnv = oscillators[i].sinebuf(newFreq);
         returnSample += (newPreEnv * newAmp);
     }
     return returnSample;
