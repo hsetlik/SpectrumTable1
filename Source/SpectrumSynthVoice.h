@@ -94,11 +94,13 @@ public:
                     juce::SynthesiserSound *sound,
                     int currentPitchWheelPosition)
     {
-        double newPitch = juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+        printf("midi number: %d\n", midiNoteNumber);
+        auto newPitch = juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+        printf("new pitch: %f\n\n", newPitch);
         for(int i = 0; i < 3; ++i)
         {
             allOscs[i].envelope1.trigger = 1;
-            allOscs[i].fundamental = (newPitch / 4.0f);
+            allOscs[i].fundamental = (float)(newPitch / 4.0f);
         }
     }
     void stopNote (float velocity, bool allowTailOff)
