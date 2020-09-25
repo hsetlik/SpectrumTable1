@@ -14,7 +14,7 @@
 //==============================================================================
 ModSourceComponent::ModSourceComponent(juce::String desc, juce::DragAndDropContainer* parentContainer) :  parent(parentContainer), description(desc)
 {
-    printf("Component %s created\n", desc.toUTF16());
+    //printf("Component %s created\n", desc.toUTF16());
 }
 
 void ModSourceComponent::paint (juce::Graphics& g)
@@ -42,9 +42,19 @@ LfoComponent::LfoComponent(juce::String desc, juce::DragAndDropContainer* parent
     
 }
 
+void LfoComponent::paint(juce::Graphics &g)
+{
+    juce::Colour background = color.RGBColor(50, 55, 55);
+    g.fillAll(background);
+    juce::Rectangle<float> area = getLocalBounds().toFloat();
+    juce::Colour outlineColor = color.RGBColor(210, 210, 210);
+    g.setColour(outlineColor);
+    g.drawRect(area, 1.5f);
+}
+
 void LfoComponent::resized()
 {
     int n = getHeight() / 10;
-    modSource.setBounds(3.25 * n, n, 2 * n,  2 * n);
-    freqSlider.setBounds(n, 5 * n, 5 * n, 5 * n);
+    modSource.setBounds(2.85 * n, n, 2 * n,  2 * n);
+    freqSlider.setBounds(n, 4.65 * n, 5 * n, 5 * n);
 }

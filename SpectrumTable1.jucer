@@ -5,6 +5,7 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
+      <FILE id="gWGPPW" name="RGBColor.h" compile="0" resource="0" file="Source/RGBColor.h"/>
       <GROUP id="{1DF60EF4-B3DC-F802-AE5D-860A05C8129F}" name="Modulation Processing">
         <FILE id="NJqVVH" name="LfoProcessor.cpp" compile="1" resource="0"
               file="Source/LfoProcessor.cpp"/>

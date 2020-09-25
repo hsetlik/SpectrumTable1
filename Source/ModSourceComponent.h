@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "maximilian.h"
+#include "RGBColor.h"
 //==============================================================================
 /*
 */
@@ -54,7 +55,7 @@ public:
     LfoComponent(juce::String desc, juce::DragAndDropContainer* parentContainer, int index);
     ~LfoComponent() {}
     void resized() override;
-    
+    void paint(juce::Graphics& g) override;
     void attachToTree(juce::AudioProcessorValueTreeState* target)
     {
         juce::String iStr = juce::String(LfoIndex);
@@ -75,5 +76,6 @@ public:
     int LfoIndex;
     juce::Slider freqSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> freqAttach;
+    ColorCreator color;
     
 };
