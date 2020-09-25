@@ -28,8 +28,7 @@ void ModSourceComponent::paint (juce::Graphics& g)
 
 void ModSourceComponent::resized()
 {
-    juce::Rectangle<int> area = getLocalBounds();
-    setBounds(area);
+
 }
 
 LfoComponent::LfoComponent(juce::String desc, juce::DragAndDropContainer* parentContainer, int index) : modSource(desc, parentContainer), LfoIndex(index)
@@ -46,6 +45,6 @@ LfoComponent::LfoComponent(juce::String desc, juce::DragAndDropContainer* parent
 void LfoComponent::resized()
 {
     int n = getHeight() / 10;
-    modSource.setBounds(n, n, 3 * n, 3 * n);
-    freqSlider.setBounds(n, 5 * n, 3 * n, 3 * n);
+    modSource.setBounds(3.25 * n, n, 2 * n,  2 * n);
+    freqSlider.setBounds(n, 5 * n, 5 * n, 5 * n);
 }

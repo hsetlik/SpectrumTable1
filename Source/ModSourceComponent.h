@@ -58,7 +58,8 @@ public:
     void attachToTree(juce::AudioProcessorValueTreeState* target)
     {
         juce::String iStr = juce::String(LfoIndex);
-        freqAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*target, "lfoParam"+ iStr, freqSlider));
+        auto pId = "lfoParam"+ iStr;
+        freqAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*target, pId, freqSlider));
     }
     juce::AudioProcessorParameterGroup createParamGroup()
     {

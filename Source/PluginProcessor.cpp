@@ -49,6 +49,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     layout.add(std::make_unique<juce::AudioParameterBool>(p1SnapId, p1SnapName, false));
     layout.add(std::make_unique<juce::AudioParameterBool>(p0SnapId, p0SnapName, false));
     }
+    auto lfoId = "lfoParam0";
+    auto lfoName = "LFO 1 Frequency";
+    layout.add(std::make_unique<juce::AudioParameterFloat>(lfoId, lfoName, 0.01f, 20.0f, 1.0f));
     return layout;
 }
 

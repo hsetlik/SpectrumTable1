@@ -13,7 +13,7 @@
 #include "SpectrumParameterSet.h"
 #include "OscilloscopeComponent.h"
 #include "OscillatorGroup.h"
-
+#include "ModParentComponent.h"
 
 //==============================================================================
 /**
@@ -31,10 +31,8 @@ public:
 private:
     SpectrumTable1AudioProcessor& audioProcessor;
     //MaxiOscGraph graph;
-    OscillatorSet allOscs;
+    ModParentComponent masterComp;
     
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectrumTable1AudioProcessorEditor)
