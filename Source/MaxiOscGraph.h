@@ -83,7 +83,7 @@ public:
     void paint (juce::Graphics&) override;
 private:
     std::vector<float> waveDataPoints;
-    float amplitude = 140.0f;
+    float amplitude = 100.0f;
     GraphValueSet* values;
     juce::Colour backgroundColor = juce::Colours::darkgrey;
     juce::Colour traceColor = juce::Colours::orange;

@@ -11,12 +11,12 @@
 #include "SpectrumOscillator.h"
 HarmonicOscillator::HarmonicOscillator(int maxOvertones) : maxHarmonicCount(maxOvertones)
 {
-    
+    /*
     envelope1.setAttack(20.0f);
     envelope1.setRelease(85.0f);
     envelope1.setSustain(0.6f);
     envelope1.setRelease(150.0f);
-     
+     */
     for(int i = 0; i < maxHarmonicCount; ++i)
     {
         std::unique_ptr<HarmonicData> newHarmonic(new HarmonicData(i));
@@ -43,8 +43,8 @@ float HarmonicOscillator::getNextSample()
             newFreq = fundamental * harmonics[i].getFrequencyFactor1(currentP1);
             newAmp = harmonics[i].getAmplitudeFactor1(currentP0);
         }
-        auto newPreEnv = oscillators[i].sinewave(newFreq);
-        returnSample = (newPreEnv * newAmp);
+        float newPreEnv = oscillators[i].sinewave(newFreq);
+        returnSample += (newPreEnv * newAmp);
     }
     return returnSample;
 }

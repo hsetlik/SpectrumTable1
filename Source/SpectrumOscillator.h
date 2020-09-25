@@ -50,7 +50,10 @@ public:
     //data
     std::vector<HarmonicData> harmonics;
     std::vector<maxiOsc> oscillators;
-    float fundamental = 0.0f;
+    void setFundamental(float newFundamental)
+    {
+        fundamental = newFundamental;
+    }
     float currentP1;
     float currentP0;
     int currentHarmonicCount;
@@ -58,5 +61,7 @@ public:
     bool secondAlgOn = false;
     maxiEnv envelope1;
     maxiEnv envelope2;
+private:
+    float fundamental = 0.0f;
     
 };

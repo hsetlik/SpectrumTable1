@@ -99,8 +99,9 @@ public:
         printf("new pitch: %f\n\n", newPitch);
         for(int i = 0; i < 3; ++i)
         {
+            allOscs[i].setFundamental(newPitch);
             allOscs[i].envelope1.trigger = 1;
-            allOscs[i].fundamental = (float)(newPitch / 4.0f);
+            
         }
     }
     void stopNote (float velocity, bool allowTailOff)
