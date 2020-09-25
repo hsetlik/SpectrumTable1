@@ -6,6 +6,10 @@
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
       <GROUP id="{E61861CB-9793-F58C-1A07-849555E93555}" name="ModComponents">
+        <FILE id="LebhTj" name="ModDestination.cpp" compile="1" resource="0"
+              file="Source/ModDestination.cpp"/>
+        <FILE id="yw318v" name="ModDestination.h" compile="0" resource="0"
+              file="Source/ModDestination.h"/>
         <FILE id="DWDkhS" name="ModParentComponent.cpp" compile="1" resource="0"
               file="Source/ModParentComponent.cpp"/>
         <FILE id="RDWDi7" name="ModParentComponent.h" compile="0" resource="0"
