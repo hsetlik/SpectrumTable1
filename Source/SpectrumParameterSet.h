@@ -31,6 +31,8 @@ public:
     juce::Slider p0Slider;
     juce::Slider p1Slider;
     juce::TextButton algButton;
+    juce::TextButton p1SnapButton;
+    juce::TextButton p0SnapButton;
     
     MaxiOscGraph graph;
     EnvelopeSliderSet envSliders;
@@ -39,6 +41,8 @@ public:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p0Attach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p1Attach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> algAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> p1SnapAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> p0SnapAttach;
     
     //stuff for the envelope
     

@@ -20,8 +20,16 @@ SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  
     addAndMakeVisible(&p1Slider);
     addAndMakeVisible(&algButton);
     addAndMakeVisible(&graph);
-    algButton.setButtonText("Algorithm");
+    algButton.setButtonText("Compund Mode");
     algButton.setClickingTogglesState(true);
+    
+    addAndMakeVisible(&p1SnapButton);
+    p1SnapButton.setButtonText("Snap");
+    p1SnapButton.setClickingTogglesState(true);
+    
+    addAndMakeVisible(&p0SnapButton);
+    p0SnapButton.setButtonText("Snap");
+    p0SnapButton.setClickingTogglesState(true);
 
     nSlider.setSliderStyle(juce::Slider::LinearHorizontal);
     p0Slider.setSliderStyle(juce::Slider::LinearHorizontal);
@@ -56,9 +64,13 @@ juce::AudioProcessorParameterGroup SpectrumParameterSet::createParamGroup()
     juce::String nId = "nParam" + iStr;
     juce::String nName = "number of harmonics";
     juce::String p1Id = "p1Param" + iStr;
-    juce::String p1Name = "Parameter 2";
+    juce::String p1Name = "Parameter 1";
     juce::String algId = "algParam" + iStr;
     juce::String algName = "Serial Amplitude Modulation";
+    juce::String p1SnapId = "p1SnapParam" + iStr;
+    juce::String p1SnapName = "Parameter 1 Snap";
+    juce::String p0SnapId = "p0SnapParam" + iStr;
+    juce::String p0SnapName = "Parameter 0 Snap";
     
     auto aId = "attackParam"+ iStr;
     auto aName = "Oscillator " + iStr + " Attack";
@@ -73,6 +85,8 @@ juce::AudioProcessorParameterGroup SpectrumParameterSet::createParamGroup()
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p0Id, p0Name, 0.0, 15.0, 1.0));
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p1Id, p1Name, 1.0, 15.0, 1.0));
     newGroup.addChild(std::make_unique<juce::AudioParameterBool>(algId, algName, false));
+    newGroup.addChild(std::make_unique<juce::AudioParameterBool>(p1SnapId, p1SnapName, false));
+    newGroup.addChild(std::make_unique<juce::AudioParameterBool>(p0SnapId, p0SnapName, false));
     
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(aId, aName, 1.0, 15000.0, 25.0));
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(dId, dName, 1.0, 15000.0, 25.0));
@@ -97,6 +111,12 @@ void SpectrumParameterSet::attachToTree(juce::AudioProcessorValueTreeState* pTre
     algAttach.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(*pTree,
                                                                              "algParam" + iStr,
                                                                                   algButton));
+    p1SnapAttach.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(*pTree,
+                                                                             "p1SnapParam" + iStr,
+                                                                                  p1SnapButton));
+    p0SnapAttach.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(*pTree,
+                                                                             "p0SnapParam" + iStr,
+                                                                                  p0SnapButton));
     aAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree,
                                                                            "attackParam" + iStr,
                                                                                   envSliders.aSlider));
@@ -124,7 +144,9 @@ void SpectrumParameterSet::resized()
     nSlider.setBounds(l, l, 10 * l, l);
     p0Slider.setBounds(l, 3 * l, 10 * l, l);
     p1Slider.setBounds(l, 5 * l, 10 * l, l);
+    p1SnapButton.setBounds(11 * l, 5 * l, 1.5 * l, l);
+    p0SnapButton.setBounds(11 * l, 3 * l, 1.5 * l, l);
     algButton.setBounds(l, 7 * l, 4 * l, l);
-    graph.setBounds(l * 11, l, 10 * l, 10 * l);
+    graph.setBounds(l * 13, l, 10 * l, 10 * l);
     envSliders.setBounds(l, 12 * l, 18 * l, 6 * l);
 }

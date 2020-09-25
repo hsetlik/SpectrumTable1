@@ -23,6 +23,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     juce::String p1Name = "Parameter 2";
     juce::String algId = "algParam" + iStr;
     juce::String algName = "Serial Amplitude Modulation";
+    juce::String p1SnapId = "p1SnapParam" + iStr;
+    juce::String p1SnapName = "Parameter 1 Snap";
+    juce::String p0SnapId = "p0SnapParam" + iStr;
+    juce::String p0SnapName = "Parameter 0 Snap";
         
     juce::String aId = "attackParam" + iStr;
     juce::String aName = "Oscillator " + iStr + " Attack";
@@ -42,6 +46,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     layout.add(std::make_unique<juce::AudioParameterFloat>(p0Id, p0Name, 0.0, 15.0, 1.0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(p1Id, p1Name, 1.0, 15.0, 1.0));
     layout.add(std::make_unique<juce::AudioParameterBool>(algId, algName, false));
+    layout.add(std::make_unique<juce::AudioParameterBool>(p1SnapId, p1SnapName, false));
+    layout.add(std::make_unique<juce::AudioParameterBool>(p0SnapId, p0SnapName, false));
     }
     return layout;
 }
@@ -197,7 +203,10 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 juce::String p0Name = "p0Param" + nStr;
                 juce::String p1Name = "p1Param" + nStr;
                 juce::String algName = "algParam" + nStr;
+                juce::String p1SnapName = "p1SnapParam" + nStr;
+               
                 
+                thisVoice->setVoiceP1Snap(tree.getRawParameterValue(p1SnapName), n);
                 thisVoice->setAttack(tree.getRawParameterValue(aName), n);
                 thisVoice->setDecay(tree.getRawParameterValue(dName), n);
                 thisVoice->setSustain(tree.getRawParameterValue(sName), n);

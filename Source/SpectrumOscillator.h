@@ -59,6 +59,8 @@ public:
     int currentHarmonicCount;
     int maxHarmonicCount;
     bool secondAlgOn = false;
+    bool p1Snap = false;
+    bool p0Snap = false;
     maxiEnv envelope1;
     maxiEnv envelope2;
 private:

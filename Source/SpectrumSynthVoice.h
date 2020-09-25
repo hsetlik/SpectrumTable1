@@ -41,7 +41,7 @@ public:
     void setVoiceP0(std::atomic<float>* value, int index)
     {
         HarmonicOscillator* thisOsc = &allOscs[index];
-        if(thisOsc->secondAlgOn)
+        if(thisOsc->p0Snap)
             thisOsc->currentP0 = floor(*value);
         else
             thisOsc->currentP0 = *value;
@@ -49,10 +49,20 @@ public:
     void setVoiceP1(std::atomic<float>* value, int index)
     {
         HarmonicOscillator* thisOsc = &allOscs[index];
-        if(thisOsc->secondAlgOn)
+        if(thisOsc->p1Snap)
             thisOsc->currentP1 = floor(*value);
-        else
-            thisOsc->currentP1 = *value;
+       else
+           thisOsc->currentP1 = *value;
+    }
+    void setVoiceP1Snap(std::atomic<float>* value, int index)
+    {
+        HarmonicOscillator* thisOsc = &allOscs[index];
+        thisOsc->p1Snap = (bool)(*value);
+    }
+    void setVoiceP0Snap(std::atomic<float>* value, int index)
+    {
+        HarmonicOscillator* thisOsc = &allOscs[index];
+        thisOsc->p0Snap = (bool)(*value);
     }
     void setNumHarmonics(std::atomic<float>* value, int index)
     {
@@ -145,9 +155,10 @@ public:
                 float newPreEnv = allOscs[g].getNextSample();
                 sum += (allOscs[g].envelope1.adsr(newPreEnv, allOscs[g].envelope1.trigger));
             }
+            newSample = sum / 3.0f;
             for(int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
-                outputBuffer.addSample(channel, startSample, sum);
+                outputBuffer.addSample(channel, startSample, newSample);
             }
             ++startSample;
         }
