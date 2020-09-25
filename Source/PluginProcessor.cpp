@@ -23,6 +23,20 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     juce::String p1Name = "Parameter 2";
     juce::String algId = "algParam" + iStr;
     juce::String algName = "Serial Amplitude Modulation";
+        
+    juce::String aId = "attackParam" + iStr;
+    juce::String aName = "Oscillator " + iStr + " Attack";
+    juce::String dId = "decayParam" + iStr;
+    juce::String dName = "Oscillator " + iStr + " Decay";
+    juce::String sId = "sustainParam" + iStr;
+    juce::String sName = "Oscillator " + iStr + " Sustain";
+    juce::String rId = "releaseParam" + iStr;
+    juce::String rName = "Oscillator " + iStr + " Release";
+    
+    layout.add(std::make_unique<juce::AudioParameterFloat>(aId, aName, 1.0, 15000.0, 25.0));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(dId, dName, 1.0, 15000.0, 65.0));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(sId, sName, 0.0, 1.0, 0.6));
+    layout.add(std::make_unique<juce::AudioParameterFloat>(rId, rName, 1.0, 15000.0, 100.0));
     
     layout.add(std::make_unique<juce::AudioParameterFloat>(nId, nName, 1.0, 40.0, 6.0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(p0Id, p0Name, 0.0, 15.0, 1.0));
@@ -172,20 +186,29 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     {
         if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
         {
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam0"), 0);
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param0"), 0);
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param0"), 0);
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam0"), 0);
-            
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam1"), 1);
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param1"), 1);
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param1"), 1);
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam1"), 1);
-            
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam2"), 2);
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param2"), 2);
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param2"), 2);
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam2"), 2);
+            for(int n = 0; n < 3; ++n)
+            {
+                juce::String nStr = juce::String(n);
+                juce::String aName = "attackParam" + nStr;
+                juce::String dName = "decayParam" + nStr;
+                juce::String sName = "sustainParam" + nStr;
+                juce::String rName = "releaseParam" + nStr;
+                juce::String nName = "nParam" + nStr;
+                juce::String p0Name = "p0Param" + nStr;
+                juce::String p1Name = "p1Param" + nStr;
+                juce::String algName = "algParam" + nStr;
+                
+                thisVoice->setAttack(tree.getRawParameterValue(aName), n);
+                thisVoice->setDecay(tree.getRawParameterValue(dName), n);
+                thisVoice->setSustain(tree.getRawParameterValue(sName), n);
+                thisVoice->setRelease(tree.getRawParameterValue(rName), n);
+                
+                thisVoice->setNumHarmonics(tree.getRawParameterValue(nName), n);
+                thisVoice->setVoiceP0(tree.getRawParameterValue(p0Name), n);
+                thisVoice->setVoiceP1(tree.getRawParameterValue(p1Name), n);
+                thisVoice->setAlgChoice(tree.getRawParameterValue(algName), n);
+                
+            }
         }
     }
     buffer.clear();

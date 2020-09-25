@@ -14,6 +14,10 @@
               file="Source/SpectrumSynthVoice.h"/>
       </GROUP>
       <GROUP id="{F2BF066C-B7BA-F8BC-0C53-301FB7CC2209}" name="ChildComponents">
+        <FILE id="nIzQOG" name="EnvelopeSliderSet.cpp" compile="1" resource="0"
+              file="Source/EnvelopeSliderSet.cpp"/>
+        <FILE id="UHDU0w" name="EnvelopeSliderSet.h" compile="0" resource="0"
+              file="Source/EnvelopeSliderSet.h"/>
         <FILE id="VW5vqm" name="SpectrumParameterSet.cpp" compile="1" resource="0"
               file="Source/SpectrumParameterSet.cpp"/>
         <FILE id="zEbPjv" name="SpectrumParameterSet.h" compile="0" resource="0"

@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "MaxiOscGraph.h"
+#include "EnvelopeSliderSet.h"
 //==============================================================================
 /*
 */
@@ -32,11 +33,19 @@ public:
     juce::TextButton algButton;
     
     MaxiOscGraph graph;
+    EnvelopeSliderSet envSliders;
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> nAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p0Attach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p1Attach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> algAttach;
+    
+    //stuff for the envelope
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> aAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> dAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> sAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> rAttach;
     
     int oscIndex;
 private:
