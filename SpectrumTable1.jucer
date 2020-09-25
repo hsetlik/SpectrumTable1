@@ -5,6 +5,16 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
+      <GROUP id="{E61861CB-9793-F58C-1A07-849555E93555}" name="ModComponents">
+        <FILE id="DWDkhS" name="ModParentComponent.cpp" compile="1" resource="0"
+              file="Source/ModParentComponent.cpp"/>
+        <FILE id="RDWDi7" name="ModParentComponent.h" compile="0" resource="0"
+              file="Source/ModParentComponent.h"/>
+        <FILE id="DMIihr" name="ModSourceComponent.cpp" compile="1" resource="0"
+              file="Source/ModSourceComponent.cpp"/>
+        <FILE id="ES4lbJ" name="ModSourceComponent.h" compile="0" resource="0"
+              file="Source/ModSourceComponent.h"/>
+      </GROUP>
       <GROUP id="{4AD4ACAA-F15F-8D2D-5B7D-DDE745D75487}" name="SoundProcessing">
         <FILE id="scCsoT" name="SpectrumOscillator.cpp" compile="1" resource="0"
               file="Source/SpectrumOscillator.cpp"/>
