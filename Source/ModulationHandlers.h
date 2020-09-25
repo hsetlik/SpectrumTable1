@@ -15,6 +15,7 @@
 
 class FloatModSource
 {
+public:
     FloatModSource();
     virtual ~FloatModSource() {}
     virtual void setValue(float newValue)
@@ -41,11 +42,17 @@ public:
     }
     void applyModulation()
     {
-        
+        *destination += source->getValue();
     }
 private:
     bool isConnected;
     FloatModSource* source;
     float* destination;
-    
+};
+
+class OscillatorModulationSet
+{
+public:
+    OscillatorModulationSet();
+    ~OscillatorModulationSet() {}
 };
