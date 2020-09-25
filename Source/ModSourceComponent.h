@@ -11,7 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-
+#include "maximilian.h"
 //==============================================================================
 /*
 */
@@ -45,4 +45,34 @@ private:
     juce::Colour ringColor = juce::Colours::black;
     juce::Colour centerColor = juce::Colours::skyblue;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModSourceComponent)
+};
+
+
+class LfoComponent : public juce::Component
+{
+public:
+    LfoComponent(juce::String desc, juce::DragAndDropContainer* parentContainer, int index);
+    ~LfoComponent() {}
+    void resized() override;
+    
+    void attachToTree(juce::AudioProcessorValueTreeState* target)
+    {
+        juce::String iStr = juce::String(LfoIndex);
+        freqAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*target, "lfoParam"+ iStr, freqSlider));
+    }
+    juce::AudioProcessorParameterGroup createParamGroup()
+    {
+        auto groupId = "lfo" + juce::String(LfoIndex);
+        auto groupName = "Lfo " + juce::String(LfoIndex);
+        juce::AudioProcessorParameterGroup group(groupId, groupName, "|");
+        auto paramId = "lfoParam" + juce::String(LfoIndex);
+        auto paramName = "LFO " + juce::String(LfoIndex) + " frequency";
+        group.addChild(std::make_unique<juce::AudioParameterFloat>(paramId, paramName, 0.01f, 20.0f, 1.0f));
+        return group;
+    }
+    ModSourceComponent modSource;
+    int LfoIndex;
+    juce::Slider freqSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> freqAttach;
+    
 };
