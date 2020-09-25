@@ -28,32 +28,45 @@ public:
 class SpectrumVoice : public juce::SynthesiserVoice
 {
 public:
-    SpectrumVoice() : osc(40)
+    SpectrumVoice() : osc1(40), osc2(40), osc3(40)
     {
         printf("voice created\n");
+        for(int i = 0; i < 3; ++i)
+        {
+            std::unique_ptr<HarmonicOscillator> newOsc(new HarmonicOscillator(40));
+            allOscs.push_back(*newOsc);
+            newOsc->envelope1.setAttack(25.0f);
+            newOsc->envelope1.setDecay(55.0f);
+            newOsc->envelope1.setSustain(0.6f);
+            newOsc->envelope1.setRelease(100.0f);
+        }
     }
     //PARAMETER INPUT FUNCTIONS
-    void setVoiceP0(std::atomic<float>* value)
+    void setVoiceP0(std::atomic<float>* value, int index)
     {
-        if(osc.secondAlgOn)
-            osc.currentP0 = floor(*value);
+        HarmonicOscillator* thisOsc = &allOscs[index];
+        if(thisOsc->secondAlgOn)
+            thisOsc->currentP0 = floor(*value);
         else
-            osc.currentP0 = *value;
+            thisOsc->currentP0 = *value;
     }
-    void setVoiceP1(std::atomic<float>* value)
+    void setVoiceP1(std::atomic<float>* value, int index)
     {
-        if(osc.secondAlgOn)
-            osc.currentP1 = floor(*value);
+        HarmonicOscillator* thisOsc = &allOscs[index];
+        if(thisOsc->secondAlgOn)
+            thisOsc->currentP1 = floor(*value);
         else
-            osc.currentP1 = *value;
+            thisOsc->currentP1 = *value;
     }
-    void setNumHarmonics(std::atomic<float>* value)
+    void setNumHarmonics(std::atomic<float>* value, int index)
     {
-        osc.currentHarmonicCount = floor(*value);
+        HarmonicOscillator* thisOsc = &allOscs[index];
+        thisOsc->currentHarmonicCount = floor(*value);
     }
-    void setAlgChoice(std::atomic<float>* value)
+    void setAlgChoice(std::atomic<float>* value, int index)
     {
-        osc.secondAlgOn = (bool)(*value);
+        HarmonicOscillator* thisOsc = &allOscs[index];
+        thisOsc->secondAlgOn = (bool)(*value);
     }
     bool canPlaySound(juce::SynthesiserSound* sound)
     {
@@ -65,13 +78,24 @@ public:
                     int currentPitchWheelPosition)
     {
         auto newPitch = juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-        osc.fundamental = newPitch;
-        osc.envelope1.trigger = 1;
+        for(int i = 0; i < 3; ++i)
+        {
+            allOscs[i].fundamental = newPitch;
+            allOscs[i].envelope1.setAttack(25.0f);
+            allOscs[i].envelope1.setDecay(85.0f);
+            allOscs[i].envelope1.setSustain(0.6f);
+            allOscs[i].envelope1.setRelease(100.0f);
+            allOscs[i].envelope1.trigger = 1;
+        }
+        
        
     }
     void stopNote (float velocity, bool allowTailOff)
     {
-        osc.envelope1.trigger = 0;
+        for(int i = 0; i < 3; ++i)
+        {
+            allOscs[i].envelope1.trigger = 0;
+        }
         allowTailOff = true;
         if(velocity == 0)
             clearCurrentNote();
@@ -99,14 +123,16 @@ public:
     //===============================================
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
     {
-        osc.envelope1.setAttack(25.0f);
-        osc.envelope1.setDecay(85.0f);
-        osc.envelope1.setSustain(0.6f);
-        osc.envelope1.setRelease(250.0f);
         for(int i = 0; i < numSamples; ++i)
         {
-            float newPreEnv = osc.getNextSample();
-            float newSample = osc.envelope1.adsr(newPreEnv, osc.envelope1.trigger);
+            float sum = 0.0f;
+            for(int i = 0; i < 3; ++i)
+            {
+                float newPreEnv = allOscs[i].getNextSample();
+                sum += allOscs[i].envelope1.adsr(newPreEnv, allOscs[i].envelope1.trigger);
+            }
+            
+            newSample = sum / 3.0f;
             for(int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
                 outputBuffer.addSample(channel, startSample, newSample);
@@ -120,5 +146,9 @@ public:
     {
         
     }
-    HarmonicOscillator osc;
+    float newSample = 0.0f;
+    std::vector<HarmonicOscillator> allOscs;
+    HarmonicOscillator osc1;
+    HarmonicOscillator osc2;
+    HarmonicOscillator osc3;
 };

@@ -11,14 +11,14 @@
 #pragma once
 
 #include <JuceHeader.h>
-
+#include "MaxiOscGraph.h"
 //==============================================================================
 /*
 */
 class SpectrumParameterSet  : public juce::Component
 {
 public:
-    SpectrumParameterSet(int oscillatorIndex);
+    SpectrumParameterSet(int oscillatorIndex, GraphValueSet* values);
     ~SpectrumParameterSet() override;
     void attachToTree(juce::AudioProcessorValueTreeState* pTree);
     void paint (juce::Graphics&) override;
@@ -30,6 +30,8 @@ public:
     juce::Slider p0Slider;
     juce::Slider p1Slider;
     juce::TextButton algButton;
+    
+    MaxiOscGraph graph;
     
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> nAttach;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p0Attach;

@@ -12,12 +12,13 @@
 #include "SpectrumParameterSet.h"
 
 //==============================================================================
-SpectrumParameterSet::SpectrumParameterSet(int index) : oscIndex(index)
+SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  graph(values), oscIndex(index)
 {
     addAndMakeVisible(&nSlider);
     addAndMakeVisible(&p0Slider);
     addAndMakeVisible(&p1Slider);
     addAndMakeVisible(&algButton);
+    addAndMakeVisible(&graph);
     algButton.setButtonText("Algorithm");
     algButton.setClickingTogglesState(true);
 
@@ -86,11 +87,12 @@ void SpectrumParameterSet::paint (juce::Graphics& g)
 
 void SpectrumParameterSet::resized()
 {
-    int l = getWidth() / 15;
+    int l = getWidth() / 24;
     nSlider.setBounds(l, l, 10 * l, l);
     p0Slider.setBounds(l, 3 * l, 10 * l, l);
     p1Slider.setBounds(l, 5 * l, 10 * l, l);
     algButton.setBounds(l, 7 * l, 4 * l, l);
+    graph.setBounds(l * 11, l, 10 * l, 10 * l);
     
 
 }

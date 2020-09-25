@@ -30,8 +30,7 @@ public:
 
 private:
     SpectrumTable1AudioProcessor& audioProcessor;
-    MaxiOscGraph graph;
-    SpectrumParameterSet sliderSet;
+    //MaxiOscGraph graph;
     OscillatorSet allOscs;
     
     // This reference is provided as a quick way for your editor to

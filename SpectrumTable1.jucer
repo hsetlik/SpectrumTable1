@@ -5,14 +5,42 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
-      <FILE id="VW5vqm" name="SpectrumParameterSet.cpp" compile="1" resource="0"
-            file="Source/SpectrumParameterSet.cpp"/>
-      <FILE id="zEbPjv" name="SpectrumParameterSet.h" compile="0" resource="0"
-            file="Source/SpectrumParameterSet.h"/>
-      <FILE id="scCsoT" name="SpectrumOscillator.cpp" compile="1" resource="0"
-            file="Source/SpectrumOscillator.cpp"/>
-      <FILE id="QVLf1S" name="SpectrumOscillator.h" compile="0" resource="0"
-            file="Source/SpectrumOscillator.h"/>
+      <GROUP id="{4AD4ACAA-F15F-8D2D-5B7D-DDE745D75487}" name="SoundProcessing">
+        <FILE id="scCsoT" name="SpectrumOscillator.cpp" compile="1" resource="0"
+              file="Source/SpectrumOscillator.cpp"/>
+        <FILE id="QVLf1S" name="SpectrumOscillator.h" compile="0" resource="0"
+              file="Source/SpectrumOscillator.h"/>
+        <FILE id="MVhs6M" name="SpectrumSynthVoice.h" compile="0" resource="0"
+              file="Source/SpectrumSynthVoice.h"/>
+      </GROUP>
+      <GROUP id="{F2BF066C-B7BA-F8BC-0C53-301FB7CC2209}" name="ChildComponents">
+        <FILE id="VW5vqm" name="SpectrumParameterSet.cpp" compile="1" resource="0"
+              file="Source/SpectrumParameterSet.cpp"/>
+        <FILE id="zEbPjv" name="SpectrumParameterSet.h" compile="0" resource="0"
+              file="Source/SpectrumParameterSet.h"/>
+        <FILE id="O1eEqL" name="OscillatorGroup.cpp" compile="1" resource="0"
+              file="Source/OscillatorGroup.cpp"/>
+        <FILE id="VE6mUa" name="OscillatorGroup.h" compile="0" resource="0"
+              file="Source/OscillatorGroup.h"/>
+      </GROUP>
+      <GROUP id="{723D5FA1-9331-B693-9F5E-F0A9F383502E}" name="PluginCore">
+        <FILE id="fN92PZ" name="PluginProcessor.cpp" compile="1" resource="0"
+              file="Source/PluginProcessor.cpp"/>
+        <FILE id="lilUqE" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/PluginProcessor.h"/>
+        <FILE id="pllzQg" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/PluginEditor.cpp"/>
+        <FILE id="QgK1fR" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      </GROUP>
+      <GROUP id="{9736A137-A571-AB4F-F166-20DE671CAD91}" name="Visualizers">
+        <FILE id="QaPGsC" name="OscilloscopeComponent.cpp" compile="1" resource="0"
+              file="Source/OscilloscopeComponent.cpp"/>
+        <FILE id="ais25V" name="OscilloscopeComponent.h" compile="0" resource="0"
+              file="Source/OscilloscopeComponent.h"/>
+        <FILE id="Vd3xrw" name="MaxiOscGraph.cpp" compile="1" resource="0"
+              file="Source/MaxiOscGraph.cpp"/>
+        <FILE id="VQ7aht" name="MaxiOscGraph.h" compile="0" resource="0" file="Source/MaxiOscGraph.h"/>
+      </GROUP>
       <GROUP id="{209FD77B-BB0E-7B22-8E68-8B174F78AD0B}" name="Maximilian_bits">
         <GROUP id="{7CCE8AD7-5126-AC14-3B51-3805332335F7}" name="src">
           <GROUP id="{C797F31D-45BC-CABE-411F-9ECE55EC799F}" name="libs">
@@ -28,26 +56,6 @@
           <FILE id="jXNJSW" name="maximilian.h" compile="0" resource="0" file="../../Maximilian_bits/src/maximilian.h"/>
         </GROUP>
       </GROUP>
-      <FILE id="fN92PZ" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="lilUqE" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="pllzQg" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="QgK1fR" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="MVhs6M" name="SpectrumSynthVoice.h" compile="0" resource="0"
-            file="Source/SpectrumSynthVoice.h"/>
-      <FILE id="QaPGsC" name="OscilloscopeComponent.cpp" compile="1" resource="0"
-            file="Source/OscilloscopeComponent.cpp"/>
-      <FILE id="ais25V" name="OscilloscopeComponent.h" compile="0" resource="0"
-            file="Source/OscilloscopeComponent.h"/>
-      <FILE id="Vd3xrw" name="MaxiOscGraph.cpp" compile="1" resource="0"
-            file="Source/MaxiOscGraph.cpp"/>
-      <FILE id="VQ7aht" name="MaxiOscGraph.h" compile="0" resource="0" file="Source/MaxiOscGraph.h"/>
-      <FILE id="O1eEqL" name="OscillatorGroup.cpp" compile="1" resource="0"
-            file="Source/OscillatorGroup.cpp"/>
-      <FILE id="VE6mUa" name="OscillatorGroup.h" compile="0" resource="0"
-            file="Source/OscillatorGroup.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

@@ -56,7 +56,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     SpectrumVoice* thisVoice;
     juce::AudioProcessorValueTreeState tree;
-    GraphValueSet graphValues;
+    std::vector<GraphValueSet> allGraphValues;
+    //GraphValueSet graphValues1;
     
    
 private:

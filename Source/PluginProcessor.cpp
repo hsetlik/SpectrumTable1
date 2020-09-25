@@ -44,7 +44,7 @@ SpectrumTable1AudioProcessor::SpectrumTable1AudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), tree(*this, nullptr, "ALLPARAMETERS", createLayout()), graphValues(40)
+                       ), tree(*this, nullptr, "ALLPARAMETERS", createLayout())
 #endif
 {
     for(int i = 0; i < 6; ++i)
@@ -54,6 +54,11 @@ SpectrumTable1AudioProcessor::SpectrumTable1AudioProcessor()
     synth.clearSounds();
     synth.addSound(new SpectrumSound());
     //filling up the source with empty buffers so we have a line at the beginning
+    for(int i = 0; i < 3; ++i)
+    {
+        std::unique_ptr<GraphValueSet> newValSet(new GraphValueSet(40));
+        allGraphValues.push_back(*newValSet);
+    }
 }
 
 SpectrumTable1AudioProcessor::~SpectrumTable1AudioProcessor()
@@ -167,31 +172,40 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     {
         if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
         {
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam0"));
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param0"));
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param0"));
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam0"));
+            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam0"), 0);
+            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param0"), 0);
+            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param0"), 0);
+            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam0"), 0);
             
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam1"));
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param1"));
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param1"));
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam1"));
+            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam1"), 1);
+            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param1"), 1);
+            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param1"), 1);
+            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam1"), 1);
             
-            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam2"));
-            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param2"));
-            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param2"));
-            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam2"));
+            thisVoice->setNumHarmonics(tree.getRawParameterValue("nParam2"), 2);
+            thisVoice->setVoiceP0(tree.getRawParameterValue("p0Param2"), 2);
+            thisVoice->setVoiceP1(tree.getRawParameterValue("p1Param2"), 2);
+            thisVoice->setAlgChoice(tree.getRawParameterValue("algParam2"), 2);
         }
     }
-    graphValues.setNumHarmonics(tree.getRawParameterValue("nParam0"));
-    graphValues.setP0(tree.getRawParameterValue("p0Param0"));
-    graphValues.setP1(tree.getRawParameterValue("p1Param0"));
-    graphValues.setAlgSelection(tree.getRawParameterValue("algParam0"));
     buffer.clear();
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
     float masterLevel = buffer.getRMSLevel(0, 0, buffer.getNumSamples());
-    graphValues.setMasterVol(masterLevel);
-    graphValues.setDisplayPoints();
+    for(int i = 0; i < 3; ++i)
+    {
+        juce::String iStr = juce::String(i);
+        auto nPar = "nParam" + iStr;
+        auto p0Par = "p0Param" + iStr;
+        auto p1Par = "p1Param" + iStr;
+        auto algPar = "algParam" + iStr;
+        
+        allGraphValues[i].setNumHarmonics(tree.getRawParameterValue(nPar));
+        allGraphValues[i].setP0(tree.getRawParameterValue(p0Par));
+        allGraphValues[i].setP1(tree.getRawParameterValue(p1Par));
+        allGraphValues[i].setAlgSelection(tree.getRawParameterValue(algPar));
+        allGraphValues[i].setMasterVol(masterLevel);
+        allGraphValues[i].setDisplayPoints();
+    }
 }
 
 //==============================================================================

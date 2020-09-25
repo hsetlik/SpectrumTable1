@@ -13,7 +13,7 @@
 #include <JuceHeader.h>
 #include "SpectrumParameterSet.h"
 #include "MaxiOscGraph.h"
-
+#include "PluginProcessor.h"
 
 
 
@@ -26,18 +26,18 @@ const int totalOscillators = 3;
 class OscillatorSet  : public juce::TabbedComponent
 {
 public:
-    OscillatorSet() : juce::TabbedComponent(juce::TabbedButtonBar::TabsAtTop), pSet1(0), pSet2(1), pSet3(2)
+    OscillatorSet(SpectrumTable1AudioProcessor& proc) : juce::TabbedComponent(juce::TabbedButtonBar::TabsAtTop), pSet1(0, &proc.allGraphValues[0]), pSet2(1, &proc.allGraphValues[1]), pSet3(2, &proc.allGraphValues[2]), processor(proc)
     {
         setBoundsRelative(0.0f, 0.0f, 1.0f, 1.0f);
         setTabBarDepth(25);
         addTab("Osc 1", tabBkgnd, &pSet1, false);
         addTab("Osc 2", tabBkgnd, &pSet2, false);
         addTab("Osc 3", tabBkgnd, &pSet3, false);
-        
+        /*
         addAndMakeVisible(&pSet1);
         addAndMakeVisible(&pSet2);
         addAndMakeVisible(&pSet3);
-        
+        */
         setCurrentTabIndex(0);
     }
     ~OscillatorSet() {}
@@ -48,6 +48,7 @@ public:
         pSet2.attachToTree(target);
         pSet3.attachToTree(target);
     }
+    SpectrumTable1AudioProcessor& processor;
     SpectrumParameterSet pSet1;
     SpectrumParameterSet pSet2;
     SpectrumParameterSet pSet3;
