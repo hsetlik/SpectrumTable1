@@ -39,6 +39,10 @@ public:
     {
         return paramValue;
     }
+    juce::Colour getCenterColor()
+    {
+        return centerColor;
+    }
     juce::DragAndDropContainer* parent;
     juce::String description;
 private:
@@ -72,6 +76,7 @@ public:
         group.addChild(std::make_unique<juce::AudioParameterFloat>(paramId, paramName, 0.01f, 20.0f, 1.0f));
         return group;
     }
+    
     ModSourceComponent modSource;
     int LfoIndex;
     juce::Slider freqSlider;

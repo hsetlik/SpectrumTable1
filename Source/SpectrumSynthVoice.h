@@ -36,15 +36,24 @@ public:
         {
             std::unique_ptr<HarmonicOscillator> newOsc(new HarmonicOscillator(40));
             allOscs.push_back(*newOsc);
-        }
-        for(int i = 0; i < 3; ++i)
-        {
-            float* rP0 = &allOscs[i].currentP0;
-            float* rP1 = &allOscs[i].currentP1;
-            float* rN = &allOscs[i].currentHarmonicCount;
+            float* rP0 = &allOscs.back().currentP0;
+            float* rP1 = &allOscs.back().currentP1;
+            float* rN = &allOscs.back().currentHarmonicCount;
             std::unique_ptr<OscillatorModHandler>newHandler(new OscillatorModHandler(rP0, rP1, rN, i));
             oscHandlers.push_back(*newHandler);
         }
+    }
+    
+    //MODULATION INPUT FUNCTIONS - each ModGenerator  parameter in the handler needs a function
+    void setLfo0Rate(std::atomic<float>* value, int index)
+    {
+        OscillatorModHandler* thisHandler = &oscHandlers[index];
+        thisHandler->lfo0.setRate(*value);
+    }
+    void setLfo0Depth(std::atomic<float>* value, int index)
+    {
+        OscillatorModHandler* thisHandler = &oscHandlers[index];
+        thisHandler->lfo0.setDepth(*value);
     }
     //PARAMETER INPUT FUNCTIONS
     void setVoiceP0(std::atomic<float>* value, int index)

@@ -12,7 +12,14 @@
 #include "SpectrumParameterSet.h"
 
 //==============================================================================
-SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  graph(values), envSliders(index), oscIndex(index)
+SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values, juce::DragAndDropContainer* container) :
+graph(values),
+envSliders(index),
+parentContainer(container),
+oscIndex(index),
+p0Dest(container, "p0Dest" + juce::String(index), index),
+p1Dest(container, "p1Dest" + juce::String(index), index),
+nDest(container, "nDest" + juce::String(index), index)
 {
     addAndMakeVisible(&envSliders);
     addAndMakeVisible(&nSlider);
@@ -22,6 +29,10 @@ SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  
     addAndMakeVisible(&graph);
     algButton.setButtonText("Compund Mode");
     algButton.setClickingTogglesState(true);
+    
+    addAndMakeVisible(&nDest);
+    addAndMakeVisible(&p0Dest);
+    addAndMakeVisible(&p1Dest);
     
     addAndMakeVisible(&p1SnapButton);
     p1SnapButton.setButtonText("Snap");
@@ -141,9 +152,12 @@ void SpectrumParameterSet::paint (juce::Graphics& g)
 void SpectrumParameterSet::resized()
 {
     int l = getWidth() / 24;
-    nSlider.setBounds(2 * l, l, 9 * l, l);
-    p0Slider.setBounds(2 * l, 3 * l, 9 * l, l);
-    p1Slider.setBounds(2 * l, 5 * l, 9 * l, l);
+    nSlider.setBounds(3 * l, l, 8 * l, l);
+    nDest.setBounds(l / 2, l, 1.5 * l, 1.5 * l);
+    p0Slider.setBounds(3 * l, 3 * l, 8 * l, l);
+    p0Dest.setBounds(l / 2, 3 * l, 1.5 * l, 1.5 * l);
+    p1Slider.setBounds(3 * l, 5 * l, 8 * l, l);
+    p1Dest.setBounds(l / 2, 5 * l, 1.5 * l, 1.5 * l);
     p1SnapButton.setBounds(11 * l, 5 * l, 1.5 * l, l);
     p0SnapButton.setBounds(11 * l, 3 * l, 1.5 * l, l);
     algButton.setBounds(l, 7 * l, 4 * l, l);

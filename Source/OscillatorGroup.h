@@ -15,10 +15,6 @@
 #include "MaxiOscGraph.h"
 #include "PluginProcessor.h"
 
-
-
-
-
 const int totalOscillators = 3;
 //==============================================================================
 /*
@@ -26,7 +22,12 @@ const int totalOscillators = 3;
 class OscillatorSet  : public juce::TabbedComponent
 {
 public:
-    OscillatorSet(SpectrumTable1AudioProcessor& proc) : juce::TabbedComponent(juce::TabbedButtonBar::TabsAtTop), processor(proc), pSet1(0, &proc.allGraphValues[0]), pSet2(1, &proc.allGraphValues[1]), pSet3(2, &proc.allGraphValues[2])
+    OscillatorSet(SpectrumTable1AudioProcessor& proc, juce::DragAndDropContainer* container) :
+    juce::TabbedComponent(juce::TabbedButtonBar::TabsAtTop),
+    processor(proc),
+    pSet1(0, &proc.allGraphValues[0], container),
+    pSet2(1, &proc.allGraphValues[1], container),
+    pSet3(2, &proc.allGraphValues[2], container)
     {
         setBoundsRelative(0.0f, 0.0f, 1.0f, 1.0f);
         setTabBarDepth(25);
