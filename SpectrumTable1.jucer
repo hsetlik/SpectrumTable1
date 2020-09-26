@@ -6,6 +6,14 @@
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
       <FILE id="gWGPPW" name="RGBColor.h" compile="0" resource="0" file="Source/RGBColor.h"/>
+      <GROUP id="{4BAA096C-3CB8-E93D-9AD8-9F635DC1C1DD}" name="ModProcessing">
+        <FILE id="Z1itxq" name="ModGenerator.cpp" compile="1" resource="0"
+              file="Source/ModGenerator.cpp"/>
+        <FILE id="AWcwbC" name="ModGenerator.h" compile="0" resource="0" file="Source/ModGenerator.h"/>
+        <FILE id="m38jo6" name="ModProcessor.cpp" compile="1" resource="0"
+              file="Source/ModProcessor.cpp"/>
+        <FILE id="quttRT" name="ModProcessor.h" compile="0" resource="0" file="Source/ModProcessor.h"/>
+      </GROUP>
       <GROUP id="{E61861CB-9793-F58C-1A07-849555E93555}" name="ModComponents">
         <FILE id="LebhTj" name="ModDestination.cpp" compile="1" resource="0"
               file="Source/ModDestination.cpp"/>

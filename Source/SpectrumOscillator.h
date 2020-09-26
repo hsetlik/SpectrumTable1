@@ -9,7 +9,7 @@
 */
 
 #pragma once
-#include "maximilian.h"
+#include "ModProcessor.h"
 #include <JuceHeader.h>
 
 class HarmonicData
@@ -56,13 +56,16 @@ public:
     std::vector<maxiOsc> oscillators;
     float currentP1;
     float currentP0;
-    int currentHarmonicCount;
+    float currentHarmonicCount;
     int maxHarmonicCount;
     bool secondAlgOn = false;
     bool p1Snap = false;
     bool p0Snap = false;
     maxiEnv envelope1;
     maxiEnv envelope2;
+    //stuff for modulation
+    bool p0HasSources = false;
+    bool p1HasSources = false;
 private:
     float fundamental = 0.0f;
     

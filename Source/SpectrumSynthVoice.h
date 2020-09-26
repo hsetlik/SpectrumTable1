@@ -11,6 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "SpectrumOscillator.h"
+#include "ModProcessor.h"
 
 class SpectrumSound : public juce::SynthesiserSound
 {
@@ -35,6 +36,14 @@ public:
         {
             std::unique_ptr<HarmonicOscillator> newOsc(new HarmonicOscillator(40));
             allOscs.push_back(*newOsc);
+        }
+        for(int i = 0; i < 3; ++i)
+        {
+            float* rP0 = &allOscs[i].currentP0;
+            float* rP1 = &allOscs[i].currentP1;
+            float* rN = &allOscs[i].currentHarmonicCount;
+            std::unique_ptr<OscillatorModHandler>newHandler(new OscillatorModHandler(rP0, rP1, rN, i));
+            oscHandlers.push_back(*newHandler);
         }
     }
     //PARAMETER INPUT FUNCTIONS
@@ -171,4 +180,5 @@ public:
     }
     float newSample = 0.0f;
     std::vector<HarmonicOscillator> allOscs;
+    std::vector<OscillatorModHandler> oscHandlers;
 };
