@@ -47,13 +47,13 @@ public:
     HarmonicOscillator(int maxOvertones);
     ~HarmonicOscillator() {}
     float getNextSample();
-    //data
-    std::vector<HarmonicData> harmonics;
-    std::vector<maxiOsc> oscillators;
     void setFundamental(float newFundamental)
     {
         fundamental = newFundamental;
     }
+    //data
+    std::vector<HarmonicData> harmonics;
+    std::vector<maxiOsc> oscillators;
     float currentP1;
     float currentP0;
     int currentHarmonicCount;

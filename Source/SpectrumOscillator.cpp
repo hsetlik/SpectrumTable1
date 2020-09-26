@@ -31,6 +31,7 @@ float HarmonicOscillator::getNextSample()
     float returnSample = 0.0f;
     for(int i = 0; i < currentHarmonicCount; ++i)
     {
+        //add something to recalculate p1, p2, and n based on active modulations here
         double newFreq;
         double newAmp;
         if(secondAlgOn)
