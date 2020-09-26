@@ -25,3 +25,4 @@ void ModDestination::paint (juce::Graphics& g)
     g.setColour(centerColor);
     g.fillEllipse(area.reduced(5.0));
 }
+

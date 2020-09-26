@@ -10,9 +10,10 @@
         <FILE id="NJqVVH" name="LfoProcessor.cpp" compile="1" resource="0"
               file="Source/LfoProcessor.cpp"/>
         <FILE id="cPkhLt" name="LfoProcessor.h" compile="0" resource="0" file="Source/LfoProcessor.h"/>
-        <FILE id="XBe7Gf" name="ModulationNet.cpp" compile="1" resource="0"
-              file="Source/ModulationNet.cpp"/>
-        <FILE id="clQm1A" name="ModulationNet.h" compile="0" resource="0" file="Source/ModulationNet.h"/>
+        <FILE id="XBe7Gf" name="ModulationProcessor.cpp" compile="1" resource="0"
+              file="Source/ModulationProcessor.cpp"/>
+        <FILE id="clQm1A" name="ModulationProcessor.h" compile="0" resource="0"
+              file="Source/ModulationProcessor.h"/>
       </GROUP>
       <GROUP id="{E61861CB-9793-F58C-1A07-849555E93555}" name="ModComponents">
         <FILE id="LebhTj" name="ModDestination.cpp" compile="1" resource="0"

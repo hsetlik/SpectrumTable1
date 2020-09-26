@@ -15,9 +15,10 @@
 /*
 */
 
-class ModDestination  : public juce::Component, public juce::DragAndDropTarget //make a subclass of this for each type of Modulation
+class ModDestination  : public juce::Component, public juce::DragAndDropTarget
 {
 public:
+    //functions
     ModDestination(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index);
     ~ModDestination() {}
     void paint (juce::Graphics&) override;
@@ -33,12 +34,15 @@ public:
     void itemDropped(const juce::DragAndDropTarget::SourceDetails &dragSourceDetails) override
     {
         juce::Component* sourceComponent = dragSourceDetails.sourceComponent.get();
-        sources.push_back(sourceComponent);
+        ModSourceComponent* newSource = dynamic_cast<ModSourceComponent*>(sourceComponent);
+        sources.push_back(newSource);
     }
+    void resized() override;
+    //data
     int oscIndex;
     juce::String idString;
     juce::DragAndDropContainer* parent;
-    std::vector<juce::Component*> sources;
+    std::vector<ModSourceComponent*> sources;
 private:
     ColorCreator color;
     juce::Colour ringColor;
@@ -46,17 +50,3 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModDestination)
 };
 
-class ModDestinationSlider : public ModDestination
-{
-public:
-    ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index) :
-    ModDestination(parentContainer, idStr, index)
-    {
-        addAndMakeVisible(&depthSlider);
-        depthSlider.setSliderStyle(juce::Slider::Rotary);
-        depthSlider.setRange(0.0f, 1.0f);
-        depthSlider.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
-    }
-    ~ModDestinationSlider() {}
-    juce::Slider depthSlider;
-};

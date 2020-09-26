@@ -35,9 +35,9 @@ SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  
     p0Slider.setSliderStyle(juce::Slider::LinearHorizontal);
     p1Slider.setSliderStyle(juce::Slider::LinearHorizontal);
     
-    nSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
-    p0Slider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
-    p1Slider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
+    nSlider.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
+    p0Slider.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
+    p1Slider.setTextBoxStyle(juce::Slider::TextBoxAbove, false, 50, 20);
     
     nSlider.setRange(1.0f, 40.0f);
     p0Slider.setRange(0.0f, 15.0f);
@@ -141,9 +141,9 @@ void SpectrumParameterSet::paint (juce::Graphics& g)
 void SpectrumParameterSet::resized()
 {
     int l = getWidth() / 24;
-    nSlider.setBounds(l, l, 10 * l, l);
-    p0Slider.setBounds(l, 3 * l, 10 * l, l);
-    p1Slider.setBounds(l, 5 * l, 10 * l, l);
+    nSlider.setBounds(2 * l, l, 9 * l, l);
+    p0Slider.setBounds(2 * l, 3 * l, 9 * l, l);
+    p1Slider.setBounds(2 * l, 5 * l, 9 * l, l);
     p1SnapButton.setBounds(11 * l, 5 * l, 1.5 * l, l);
     p0SnapButton.setBounds(11 * l, 3 * l, 1.5 * l, l);
     algButton.setBounds(l, 7 * l, 4 * l, l);

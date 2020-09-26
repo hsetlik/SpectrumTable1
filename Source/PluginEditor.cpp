@@ -13,14 +13,12 @@
 SpectrumTable1AudioProcessorEditor::SpectrumTable1AudioProcessorEditor (SpectrumTable1AudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor(p),  masterComp(audioProcessor)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (800, 600);
-    //addAndMakeVisible(&graph);
+    int baseWidth = 800;
+    int baseHeight = 600;
     
+    setSize (baseWidth * 1.25, baseHeight * 1.25);
     addAndMakeVisible(&masterComp);
     masterComp.attachAllChildrenToTree(&audioProcessor.tree);
-   
 }
 
 SpectrumTable1AudioProcessorEditor::~SpectrumTable1AudioProcessorEditor()
