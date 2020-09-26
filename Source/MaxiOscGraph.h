@@ -14,6 +14,7 @@
 #include "maximilian.h"
 #include "SpectrumOscillator.h"
 #include "OscilloscopeComponent.h"
+#include "RGBColor.h"
 //==============================================================================
 /*
 */
@@ -87,5 +88,6 @@ private:
     GraphValueSet* values;
     juce::Colour backgroundColor = juce::Colours::darkgrey;
     juce::Colour traceColor = juce::Colours::orange;
+    ColorCreator color;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MaxiOscGraph)
 };

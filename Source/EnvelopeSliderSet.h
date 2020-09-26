@@ -35,13 +35,13 @@ public:
         addAndMakeVisible(sSlider);
         sSlider.setRange(0.0f, 1.0f);
         sSlider.setSliderStyle(juce::Slider::Rotary);
-        sSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+        sSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 40, 20);
         sSlider.setNumDecimalPlacesToDisplay(2);
         
         addAndMakeVisible(rSlider);
         rSlider.setRange(1.0f, 15000.0f);
         rSlider.setSliderStyle(juce::Slider::Rotary);
-        rSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+        rSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 20);
         rSlider.setNumDecimalPlacesToDisplay(0);
     }
     ~EnvelopeSliderSet() override
@@ -51,10 +51,10 @@ public:
     void resized() override
     {
         int n = getWidth() / 20;
-        aSlider.setBounds(n, n, 3 * n, 3 * n);
-        dSlider.setBounds(6 * n, n, 3 * n, 3 * n);
-        sSlider.setBounds(11 * n, n, 3 * n, 3 * n);
-        rSlider.setBounds(16 * n, n, 3 * n, 3 * n);
+        aSlider.setBounds(n, n, 3 * n, 4 * n);
+        dSlider.setBounds(6 * n, n, 3 * n, 4 * n);
+        sSlider.setBounds(11 * n, n, 3 * n, 4 * n);
+        rSlider.setBounds(16 * n, n, 3 * n, 4 * n);
     }
     void paint(juce::Graphics& g) override
     {

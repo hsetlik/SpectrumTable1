@@ -148,5 +148,5 @@ void SpectrumParameterSet::resized()
     p0SnapButton.setBounds(11 * l, 3 * l, 1.5 * l, l);
     algButton.setBounds(l, 7 * l, 4 * l, l);
     graph.setBounds(l * 13, l, 10 * l, 10 * l);
-    envSliders.setBounds(l, 12 * l, 18 * l, 6 * l);
+    envSliders.setBounds(l, 8 * l, 12 * l, 6 * l);
 }

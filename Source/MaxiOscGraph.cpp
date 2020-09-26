@@ -109,7 +109,10 @@ void MaxiOscGraph::paint (juce::Graphics& g)
         trace.lineTo(area.getX(), area.getHeight());
         trace.closeSubPath();
         
-        auto strokeType = juce::PathStrokeType(1.0f);
-        g.strokePath(trace, strokeType);
+        auto strokeType1 = juce::PathStrokeType(1.0f);
+        g.strokePath(trace, strokeType1);
+        auto frameColor = color.RGBColor(15, 15, 15);
+        g.setColour(frameColor);
+        g.drawRect(area, 1.5f);
     }
 }
