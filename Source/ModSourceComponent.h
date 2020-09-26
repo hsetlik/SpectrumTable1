@@ -9,10 +9,10 @@
 */
 
 #pragma once
-
 #include <JuceHeader.h>
 #include "maximilian.h"
 #include "RGBColor.h"
+//#include "ModParentComponent.h"
 //==============================================================================
 /*
 */
@@ -79,3 +79,5 @@ public:
     ColorCreator color;
     
 };
+
+

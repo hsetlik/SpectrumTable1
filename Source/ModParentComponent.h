@@ -11,15 +11,18 @@
 #pragma once
 
 #include <JuceHeader.h>
+
 #include "OscillatorGroup.h"
-#include "ModSourceComponent.h"
+#include "ModDestination.h"
+
+
 //==============================================================================
 /*
 */
 class ModParentComponent  : public juce::Component, public juce::DragAndDropContainer
 {
 public:
-    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc), lfo0("lfo", this, 0)
+    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc), lfo0("lfo0", this, 0)
     {
         addAndMakeVisible(&oscSet);
         addAndMakeVisible(&lfo0);
@@ -32,8 +35,10 @@ public:
         oscSet.attachAllToTree(state);
         lfo0.attachToTree(state);
     }
+    juce::DragAndDropTarget::SourceDetails getActiveSourceDetails(ModDestination* dest);
     OscillatorSet oscSet;
     LfoComponent lfo0;
+    juce::String activeDesc;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModParentComponent)
 };

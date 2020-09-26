@@ -8,11 +8,10 @@
   ==============================================================================
 */
 
-#include <JuceHeader.h>
 #include "ModSourceComponent.h"
 
 //==============================================================================
-ModSourceComponent::ModSourceComponent(juce::String desc, juce::DragAndDropContainer* parentContainer) :  parent(parentContainer), description(desc)
+ModSourceComponent::ModSourceComponent(juce::String desc, juce::DragAndDropContainer* parentContainer) : parent(parentContainer), description(desc)
 {
     //printf("Component %s created\n", desc.toUTF16());
 }
@@ -58,3 +57,5 @@ void LfoComponent::resized()
     modSource.setBounds(2.85 * n, n, 2 * n,  2 * n);
     freqSlider.setBounds(n, 4.65 * n, 5 * n, 5 * n);
 }
+
+

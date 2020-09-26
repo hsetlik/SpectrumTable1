@@ -28,3 +28,20 @@ void ModParentComponent::resized()
     oscSet.setBounds(0, 0, getWidth(),18 * n);
     lfo0.setBounds(0, 18 * n, 4 * n, 6 * n);
 }
+
+juce::DragAndDropTarget::SourceDetails ModParentComponent::getActiveSourceDetails(ModDestination* dest)
+{
+    auto activeDesc = getCurrentDragDescription();
+    juce::Point<int> relativePoint = dest->getMouseXYRelative();
+    juce::Component* activeComp;
+    if(activeDesc == "lfo0")
+    {
+        activeComp = &lfo0;
+    }
+    else
+    {
+        activeComp = nullptr;
+    }
+    auto details = juce::DragAndDropTarget::SourceDetails(activeDesc, activeComp, relativePoint);
+    return details;
+}

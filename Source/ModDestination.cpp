@@ -7,45 +7,21 @@
 
   ==============================================================================
 */
-
-#include <JuceHeader.h>
 #include "ModDestination.h"
 
 //==============================================================================
-ModDestination::ModDestination()
-{
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
 
-}
-
-ModDestination::~ModDestination()
+ModDestination::ModDestination(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index) : oscIndex(index), idString(idStr), parent(parentContainer)
 {
+    ringColor = color.RGBColor(210, 210, 210);
+    centerColor = color.RGBColor(100, 100, 100);
 }
 
 void ModDestination::paint (juce::Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("ModDestination", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
-}
-
-void ModDestination::resized()
-{
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+    juce::Rectangle<float> area = getLocalBounds().toFloat();
+    g.setColour(ringColor);
+    g.fillEllipse(area);
+    g.setColour(centerColor);
+    g.fillEllipse(area.reduced(5.0));
 }
