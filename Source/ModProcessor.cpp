@@ -29,6 +29,7 @@ void OscillatorModHandler::applyP0Mod()
         {
             if(p0SourceIds[i] == "lfo0Source")
             {
+                //issue: p0Target is somehow always pointing to a value of 15
                 float maxMod = 15.0 - *p0Target;
                 float delta = maxMod * lfoGen0.getNextSampleValue();
                 *p0Target += delta;

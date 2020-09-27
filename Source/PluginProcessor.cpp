@@ -14,7 +14,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     for(int i = 0; i < 3; ++i)
     {
-        juce::String iStr = juce::String(i);
+    juce::String iStr = juce::String(i);
     juce::String p0Id = "p0Param" + iStr;
     juce::String p0Name = "Parameter 0";
     juce::String nId = "nParam" + iStr;
@@ -238,7 +238,6 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setP1Depth(tree.getRawParameterValue(p1DepthName), n);
                 thisVoice->setNDepth(tree.getRawParameterValue(nDepthName), n);
                 thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName), n);
-                
             }
         }
     }
@@ -294,7 +293,7 @@ void SpectrumTable1AudioProcessor::addVoiceModulation(juce::String sourceId, juc
         SpectrumVoice* thisVoice = dynamic_cast<SpectrumVoice*>(synth.getVoice(i));
         for(int n = 0; n < 3; ++n)
         {
-            OscillatorModHandler* thisHandler = &thisVoice->oscHandlers[n];
+            OscillatorModHandler* thisHandler = thisVoice->oscHandlers[n];
             if(destId == "p0Dest")
                 thisHandler->addP0Source(sourceId);
             else if(destId == "p1Dest")

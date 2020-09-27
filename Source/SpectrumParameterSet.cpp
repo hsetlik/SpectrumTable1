@@ -92,12 +92,12 @@ juce::AudioProcessorParameterGroup SpectrumParameterSet::createParamGroup()
     auto rId = "releaseParam"+ iStr;
     auto rName = "Oscillator " + iStr + " Release";
     
-    auto p0DepthId = "p1DepthParam" + iStr;
-    auto p0DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
-    auto p1DepthId = "p1DepthParam" + iStr;
-    auto p1DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
-    auto nDepthId = "nDepthParam" + iStr;
-    auto nDepthName = "Oscillator " + iStr + " harmonic count mod depth";
+    juce::String p0DepthId = "p1DepthParam" + iStr;
+    juce::String p0DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
+    juce::String p1DepthId = "p1DepthParam" + iStr;
+    juce::String p1DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
+    juce::String nDepthId = "nDepthParam" + iStr;
+    juce::String nDepthName = "Oscillator " + iStr + " harmonic count mod depth";
     
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p0DepthId, p0DepthName, 0.0, 0.0, 1.0));
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p1DepthId, p1DepthName, 0.0, 0.0, 1.0));

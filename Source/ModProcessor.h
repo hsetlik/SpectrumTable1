@@ -52,10 +52,22 @@ public:
             nHasSource = true;
     }
     void applyP0Mod();
+    void setP0Depth(float newDepth)
+    {
+        p0ModDepth = newDepth;
+    }
     float p0ModDepth;
     void applyP1Mod();
+    float setP1Depth(float newDepth)
+    {
+        p1ModDepth = newDepth;
+    }
     float p1ModDepth;
     void applyNMod();
+    void setNDepth(float newDepth)
+    {
+        nModDepth = newDepth;
+    }
     float nModDepth;
     void applyAllMods();
     //these store the idStrings for each of the mod sources arrached to each parameter of the osc
