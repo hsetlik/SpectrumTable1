@@ -12,7 +12,22 @@
 
 ModDestinationSlider::ModDestinationSlider(ModTargetId id, int index, juce::Slider::SliderStyle style) : oscIndex(index), idString(id)
 {
-    setSliderStyle(style);
+    paramSlider.setSliderStyle(style);
     
     
+}
+
+void ModDestinationSlider::itemDropped(const SourceDetails &dragSourceDetails)
+{
+    addModSlider(dragSourceDetails);
+}
+
+void ModDestinationSlider::addModSlider(const SourceDetails &dragSourceDetails)
+{
+    juce::String newSourceId;
+    juce::Component* comp = dragSourceDetails.sourceComponent.get();
+    ModSourceComponent* modComp = dynamic_cast<ModSourceComponent*>(comp);
+    newSourceId = modComp->sourceId;
+    
+    depthSliders.add(new ModDepthSlider(newSourceId));
 }

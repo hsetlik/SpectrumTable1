@@ -5,7 +5,6 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="Kjl8WU" name="SpectrumTable1">
     <GROUP id="{42C6CB8D-ECBA-EE94-0C88-1A353CFEB010}" name="Source">
-      <FILE id="fJjaLl" name="RGBColor.h" compile="0" resource="0" file="Source/RGBColor.h"/>
       <GROUP id="{3BFC40B6-DDCB-6F4F-9D6B-CE5B99D53134}" name="ModulationUtil">
         <FILE id="O4J99h" name="LfoProcessor.h" compile="0" resource="0" file="Source/LfoProcessor.h"/>
         <FILE id="IVjWHb" name="ModulationHandlers.cpp" compile="1" resource="0"
@@ -22,6 +21,11 @@
               file="Source/SpectrumSynthVoice.h"/>
       </GROUP>
       <GROUP id="{F2BF066C-B7BA-F8BC-0C53-301FB7CC2209}" name="ChildComponents">
+        <FILE id="XXdqU6" name="ModSourceComponent.cpp" compile="1" resource="0"
+              file="Source/ModSourceComponent.cpp"/>
+        <FILE id="wszo2Q" name="ModSourceComponent.h" compile="0" resource="0"
+              file="Source/ModSourceComponent.h"/>
+        <FILE id="fJjaLl" name="RGBColor.h" compile="0" resource="0" file="Source/RGBColor.h"/>
         <FILE id="qPExYP" name="ModDestinationSlider.cpp" compile="1" resource="0"
               file="Source/ModDestinationSlider.cpp"/>
         <FILE id="OvJxve" name="ModDestinationSlider.h" compile="0" resource="0"
