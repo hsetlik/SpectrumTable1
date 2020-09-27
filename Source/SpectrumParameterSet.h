@@ -14,6 +14,7 @@
 #include "MaxiOscGraph.h"
 #include "EnvelopeSliderSet.h"
 #include "ModDestination.h"
+#include "MultiModDestination.h"
 
 //==============================================================================
 /*
@@ -29,12 +30,14 @@ public:
     juce::AudioProcessorParameterGroup createParamGroup();
     
     juce::AudioProcessor* audioProcessor;
-    juce::Slider nSlider;
-    juce::Slider p0Slider;
-    juce::Slider p1Slider;
+    
     juce::TextButton algButton;
     juce::TextButton p1SnapButton;
     juce::TextButton p0SnapButton;
+    
+    MultiModDestination nSlider;
+    MultiModDestination p0Slider;
+    MultiModDestination p1Slider;
     
     MaxiOscGraph graph;
     EnvelopeSliderSet envSliders;
@@ -54,14 +57,6 @@ public:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> rAttach;
     
     int oscIndex;
-    
-    //mod destinations
-    ModDestinationSlider p0Dest;
-    ModDestinationSlider p1Dest;
-    ModDestinationSlider nDest;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p0DAttach;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p1DAttach;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> nDAttach;
 private:
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectrumParameterSet)
 };

@@ -58,7 +58,7 @@ public:
     }
     float p0ModDepth;
     void applyP1Mod();
-    float setP1Depth(float newDepth)
+    void setP1Depth(float newDepth)
     {
         p1ModDepth = newDepth;
     }
