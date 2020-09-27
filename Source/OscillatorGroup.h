@@ -14,7 +14,6 @@
 #include "SpectrumParameterSet.h"
 #include "MaxiOscGraph.h"
 #include "PluginProcessor.h"
-#include "LFOComponent.h"
 
 
 
