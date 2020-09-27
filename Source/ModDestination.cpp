@@ -28,16 +28,3 @@ void ModDestination::paint (juce::Graphics& g)
 }
 
 
-ModDestinationSlider::ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index, SpectrumTable1AudioProcessor& proc) :
-destination(parentContainer, idStr, index, proc),
-processor(proc)
-{
-    addAndMakeVisible(&destination);
-    destination.setAlwaysOnTop(true);
-    addAndMakeVisible(&depthSlider);
-    
-    depthSlider.setSliderStyle(juce::Slider::Rotary);
-    depthSlider.setRange(0.0f, 1.0f);
-    depthSlider.setTextBoxStyle(juce::Slider::NoTextBox, true, 0, 0);
-}
-

@@ -83,26 +83,3 @@ private:
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModDestination)
 };
-
-class ModDestinationSlider : public juce::Component
-{
-public:
-    //functions
-    ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index, SpectrumTable1AudioProcessor& proc);
-    ~ModDestinationSlider(){}
-    void resized() override
-    {
-        juce::Rectangle<int> area = getLocalBounds();
-        depthSlider.setBounds(area);
-        int n = getWidth() / 4;
-        destination.setBounds(area.reduced(n));
-    }
-    float getDepthValue()
-    {
-        return (float)depthSlider.getValue();
-    }
-    //data
-    ModDestination destination;
-    juce::Slider depthSlider;
-    SpectrumTable1AudioProcessor& processor;
-};

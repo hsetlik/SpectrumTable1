@@ -27,6 +27,10 @@
               file="Source/ModSourceComponent.cpp"/>
         <FILE id="ES4lbJ" name="ModSourceComponent.h" compile="0" resource="0"
               file="Source/ModSourceComponent.h"/>
+        <FILE id="SG8PAI" name="MultiModDestination.cpp" compile="1" resource="0"
+              file="Source/MultiModDestination.cpp"/>
+        <FILE id="vt6ig7" name="MultiModDestination.h" compile="0" resource="0"
+              file="Source/MultiModDestination.h"/>
       </GROUP>
       <GROUP id="{4AD4ACAA-F15F-8D2D-5B7D-DDE745D75487}" name="SoundProcessing">
         <FILE id="scCsoT" name="SpectrumOscillator.cpp" compile="1" resource="0"
