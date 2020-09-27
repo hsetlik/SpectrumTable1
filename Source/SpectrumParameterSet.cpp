@@ -12,7 +12,13 @@
 #include "SpectrumParameterSet.h"
 
 //==============================================================================
-SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  graph(values), envSliders(index), oscIndex(index)
+SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :
+nSlider(ModDestinationSlider::numHarmonics, index, juce::Slider::LinearHorizontal),
+p0Slider(ModDestinationSlider::param0, index, juce::Slider::LinearHorizontal),
+p1Slider(ModDestinationSlider::param1, index, juce::Slider::LinearHorizontal),
+graph(values),
+envSliders(index),
+oscIndex(index)
 {
     addAndMakeVisible(&envSliders);
     addAndMakeVisible(&nSlider);
@@ -31,21 +37,19 @@ SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values) :  
     p0SnapButton.setButtonText("Snap");
     p0SnapButton.setClickingTogglesState(true);
 
-    nSlider.setSliderStyle(juce::Slider::LinearHorizontal);
-    p0Slider.setSliderStyle(juce::Slider::LinearHorizontal);
-    p1Slider.setSliderStyle(juce::Slider::LinearHorizontal);
     
-    nSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
-    p0Slider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
-    p1Slider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
     
-    nSlider.setRange(1.0f, 40.0f);
-    p0Slider.setRange(0.0f, 15.0f);
-    p1Slider.setRange(1.0f, 15.0f);
+    nSlider.paramSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
+    p0Slider.paramSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
+    p1Slider.paramSlider.setTextBoxStyle(juce::Slider::TextBoxLeft, false, 50, 20);
     
-    nSlider.setValue(1.0f);
-    p0Slider.setValue(1.0f);
-    p1Slider.setValue(1.0f);
+    nSlider.paramSlider.setRange(1.0f, 40.0f);
+    p0Slider.paramSlider.setRange(0.0f, 15.0f);
+    p1Slider.paramSlider.setRange(1.0f, 15.0f);
+    
+    nSlider.paramSlider.setValue(1.0f);
+    p0Slider.paramSlider.setValue(1.0f);
+    p1Slider.paramSlider.setValue(1.0f);
 }
 
 SpectrumParameterSet::~SpectrumParameterSet()
@@ -101,13 +105,13 @@ void SpectrumParameterSet::attachToTree(juce::AudioProcessorValueTreeState* pTre
     juce::String iStr = juce::String(oscIndex);
     nAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree,
                                                                            "nParam" + iStr,
-                                                                                  nSlider));
+                                                                                  nSlider.paramSlider));
     p0Attach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree,
                                                                             "p0Param" + iStr,
-                                                                                  p0Slider));
+                                                                                  p0Slider.paramSlider));
     p1Attach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree,
                                                                             "p1Param" + iStr,
-                                                                                  p1Slider));
+                                                                                  p1Slider.paramSlider));
     algAttach.reset(new juce::AudioProcessorValueTreeState::ButtonAttachment(*pTree,
                                                                              "algParam" + iStr,
                                                                                   algButton));

@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "MaxiOscGraph.h"
 #include "EnvelopeSliderSet.h"
+#include "ModDestinationSlider.cpp"
 //==============================================================================
 /*
 */
@@ -27,12 +28,13 @@ public:
     juce::AudioProcessorParameterGroup createParamGroup();
     
     juce::AudioProcessor* audioProcessor;
-    juce::Slider nSlider;
-    juce::Slider p0Slider;
-    juce::Slider p1Slider;
+    ModDestinationSlider nSlider;
+    ModDestinationSlider p0Slider;
+    ModDestinationSlider p1Slider;
     juce::TextButton algButton;
     juce::TextButton p1SnapButton;
     juce::TextButton p0SnapButton;
+    
     
     MaxiOscGraph graph;
     EnvelopeSliderSet envSliders;

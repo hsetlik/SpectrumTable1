@@ -10,7 +10,6 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "SpectrumParameterSet.h"
 #include "OscilloscopeComponent.h"
 #include "OscillatorGroup.h"
 

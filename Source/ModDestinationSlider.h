@@ -36,16 +36,16 @@ private:
     juce::Colour modTrackColor;
 };
 
-enum ModTargetId
-{
-    param0,
-    param1,
-    numHarmonics
-};
 
 class ModDestinationSlider : public juce::Component, public juce::DragAndDropTarget
 {
 public:
+    enum ModTargetId
+    {
+        param0,
+        param1,
+        numHarmonics
+    };
     //functions
     ModDestinationSlider(ModTargetId target, int oscIndex, juce::Slider::SliderStyle style);
     bool isInterestedInDragSource (const SourceDetails &dragSourceDetails) override

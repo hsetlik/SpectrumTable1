@@ -21,6 +21,10 @@
               file="Source/SpectrumSynthVoice.h"/>
       </GROUP>
       <GROUP id="{F2BF066C-B7BA-F8BC-0C53-301FB7CC2209}" name="ChildComponents">
+        <FILE id="eqAcrc" name="ModParentComponent.cpp" compile="1" resource="0"
+              file="Source/ModParentComponent.cpp"/>
+        <FILE id="JGYPI0" name="ModParentComponent.h" compile="0" resource="0"
+              file="Source/ModParentComponent.h"/>
         <FILE id="XXdqU6" name="ModSourceComponent.cpp" compile="1" resource="0"
               file="Source/ModSourceComponent.cpp"/>
         <FILE id="wszo2Q" name="ModSourceComponent.h" compile="0" resource="0"
