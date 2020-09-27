@@ -31,7 +31,6 @@ class SpectrumVoice : public juce::SynthesiserVoice
 public:
     SpectrumVoice()
     {
-        printf("voice created\n");
         for(int i = 0; i < 3; ++i)
         {
             std::unique_ptr<HarmonicOscillator> newOsc(new HarmonicOscillator(40));
@@ -48,13 +47,24 @@ public:
     void setLfo0Rate(std::atomic<float>* value, int index)
     {
         OscillatorModHandler* thisHandler = &oscHandlers[index];
-        thisHandler->lfo0.setRate(*value);
+        thisHandler->lfoGen0.setRate(*value);
     }
-    void setLfo0Depth(std::atomic<float>* value, int index)
+    void setP0Depth(std::atomic<float>* value, int index)
     {
         OscillatorModHandler* thisHandler = &oscHandlers[index];
-        thisHandler->lfo0.setDepth(*value);
+        thisHandler->p0ModDepth = *value;
     }
+    void setP1Depth(std::atomic<float>* value, int index)
+    {
+        OscillatorModHandler* thisHandler = &oscHandlers[index];
+        thisHandler->p1ModDepth = *value;
+    }
+    void setNDepth(std::atomic<float>* value, int index)
+    {
+        OscillatorModHandler* thisHandler = &oscHandlers[index];
+        thisHandler->nModDepth = *value;
+    }
+    
     //PARAMETER INPUT FUNCTIONS
     void setVoiceP0(std::atomic<float>* value, int index)
     {
@@ -122,14 +132,11 @@ public:
                     juce::SynthesiserSound *sound,
                     int currentPitchWheelPosition)
     {
-        printf("midi number: %d\n", midiNoteNumber);
         auto newPitch = juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-        printf("new pitch: %f\n\n", newPitch);
         for(int i = 0; i < 3; ++i)
         {
             allOscs[i].setFundamental(newPitch);
             allOscs[i].envelope1.trigger = 1;
-            
         }
     }
     void stopNote (float velocity, bool allowTailOff)
@@ -170,6 +177,7 @@ public:
             float sum = 0.0f;
             for(int g = 0; g < 3; ++g)
             {
+                oscHandlers[g].applyAllMods();
                 float newPreEnv = allOscs[g].getNextSample();
                 sum += (allOscs[g].envelope1.adsr(newPreEnv, allOscs[g].envelope1.trigger));
             }

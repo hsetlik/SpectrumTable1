@@ -32,6 +32,7 @@ public:
     float* p1Target;
     float* p0Target;
     float* nTarget;
+    //these need to somehow get called by the appropriate itemDropped functions in the ModDestination component
     void addP0Source(juce::String sourceId)
     {
         p0SourceIds.push_back(sourceId);
@@ -51,11 +52,15 @@ public:
             nHasSource = true;
     }
     void applyP0Mod();
+    float p0ModDepth;
     void applyP1Mod();
+    float p1ModDepth;
     void applyNMod();
+    float nModDepth;
+    void applyAllMods();
     //these store the idStrings for each of the mod sources arrached to each parameter of the osc
     std::vector<juce::String> p1SourceIds;
     std::vector<juce::String> p0SourceIds;
     std::vector<juce::String> nSourceIds;
-    LfoGenerator lfo0;
+    LfoGenerator lfoGen0;
 };

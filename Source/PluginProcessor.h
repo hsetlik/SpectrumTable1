@@ -54,6 +54,9 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    void addVoiceModulation(juce::String sourceId, juce::String destId);
+    
     SpectrumVoice* thisVoice;
     juce::AudioProcessorValueTreeState tree;
     std::vector<GraphValueSet> allGraphValues;

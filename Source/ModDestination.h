@@ -10,6 +10,7 @@
 
 #pragma once
 #include "ModSourceComponent.h"
+#include "PluginProcessor.h"
 
 //==============================================================================
 /*
@@ -19,7 +20,7 @@ class ModDestination  : public juce::Component, public juce::DragAndDropTarget
 {
 public:
     //functions
-    ModDestination(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index);
+    ModDestination(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index, SpectrumTable1AudioProcessor& proc);
     ~ModDestination() {}
     void paint (juce::Graphics&) override;
     void setColors(juce::Colour ring, juce::Colour center)
@@ -37,6 +38,8 @@ public:
         ModSourceComponent* newSource = dynamic_cast<ModSourceComponent*>(sourceComponent);
         setCenterColor(newSource->getCenterColor());
         sources.push_back(newSource);
+        juce::String sourceId = newSource->description;
+        processor.addVoiceModulation(sourceId, idString);
     }
     void itemDragEnter(const juce::DragAndDropTarget::SourceDetails &dragSourceDetails) override
     {
@@ -72,6 +75,7 @@ public:
     juce::DragAndDropContainer* parent;
     std::vector<ModSourceComponent*> sources;
     juce::Colour emptyColor;
+    SpectrumTable1AudioProcessor& processor;
 private:
     ColorCreator color;
     juce::Colour ringColor;
@@ -84,7 +88,7 @@ class ModDestinationSlider : public juce::Component
 {
 public:
     //functions
-    ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index);
+    ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index, SpectrumTable1AudioProcessor& proc);
     ~ModDestinationSlider(){}
     void resized() override
     {
@@ -97,9 +101,8 @@ public:
     {
         return (float)depthSlider.getValue();
     }
-    
-    
     //data
     ModDestination destination;
     juce::Slider depthSlider;
+    SpectrumTable1AudioProcessor& processor;
 };

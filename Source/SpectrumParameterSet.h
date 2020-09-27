@@ -14,13 +14,14 @@
 #include "MaxiOscGraph.h"
 #include "EnvelopeSliderSet.h"
 #include "ModDestination.h"
+
 //==============================================================================
 /*
 */
 class SpectrumParameterSet  : public juce::Component
 {
 public:
-    SpectrumParameterSet(int oscillatorIndex, GraphValueSet* values, juce::DragAndDropContainer* container);
+    SpectrumParameterSet(int oscillatorIndex, GraphValueSet* values, juce::DragAndDropContainer* container, SpectrumTable1AudioProcessor& proc);
     ~SpectrumParameterSet() override;
     void attachToTree(juce::AudioProcessorValueTreeState* pTree);
     void paint (juce::Graphics&) override;
@@ -58,6 +59,9 @@ public:
     ModDestinationSlider p0Dest;
     ModDestinationSlider p1Dest;
     ModDestinationSlider nDest;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p0DAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> p1DAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> nDAttach;
 private:
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpectrumParameterSet)
 };

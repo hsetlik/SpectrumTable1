@@ -34,7 +34,7 @@ juce::DragAndDropTarget::SourceDetails ModParentComponent::getActiveSourceDetail
     auto activeDesc = getCurrentDragDescription();
     juce::Point<int> relativePoint = dest->getMouseXYRelative();
     juce::Component* activeComp;
-    if(activeDesc == "lfo0")
+    if(activeDesc == "lfo0Comp")
     {
         activeComp = &lfo0;
     }

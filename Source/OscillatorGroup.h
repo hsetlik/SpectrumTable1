@@ -13,7 +13,7 @@
 #include <JuceHeader.h>
 #include "SpectrumParameterSet.h"
 #include "MaxiOscGraph.h"
-#include "PluginProcessor.h"
+
 
 const int totalOscillators = 3;
 //==============================================================================
@@ -25,9 +25,9 @@ public:
     OscillatorSet(SpectrumTable1AudioProcessor& proc, juce::DragAndDropContainer* container) :
     juce::TabbedComponent(juce::TabbedButtonBar::TabsAtTop),
     processor(proc),
-    pSet1(0, &proc.allGraphValues[0], container),
-    pSet2(1, &proc.allGraphValues[1], container),
-    pSet3(2, &proc.allGraphValues[2], container)
+    pSet1(0, &proc.allGraphValues[0], container, proc),
+    pSet2(1, &proc.allGraphValues[1], container, proc),
+    pSet3(2, &proc.allGraphValues[2], container, proc)
     {
         setBoundsRelative(0.0f, 0.0f, 1.0f, 1.0f);
         setTabBarDepth(25);

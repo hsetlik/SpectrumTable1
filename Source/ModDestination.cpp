@@ -11,7 +11,7 @@
 
 //==============================================================================
 
-ModDestination::ModDestination(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index) : oscIndex(index), idString(idStr), parent(parentContainer)
+ModDestination::ModDestination(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index, SpectrumTable1AudioProcessor& proc) : oscIndex(index), idString(idStr), parent(parentContainer), processor(proc)
 {
     ringColor = color.RGBColor(210, 210, 210);
     centerColor = color.RGBColor(100, 100, 100);
@@ -28,7 +28,9 @@ void ModDestination::paint (juce::Graphics& g)
 }
 
 
-ModDestinationSlider::ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index) : destination(parentContainer, idStr, index)
+ModDestinationSlider::ModDestinationSlider(juce::DragAndDropContainer* parentContainer, juce::String idStr, int index, SpectrumTable1AudioProcessor& proc) :
+destination(parentContainer, idStr, index, proc),
+processor(proc)
 {
     addAndMakeVisible(&destination);
     destination.setAlwaysOnTop(true);

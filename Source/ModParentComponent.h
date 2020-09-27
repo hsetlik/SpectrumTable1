@@ -22,7 +22,7 @@
 class ModParentComponent  : public juce::Component, public juce::DragAndDropContainer
 {
 public:
-    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc, this), lfo0("lfo0", this, 0)
+    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc, this), lfo0("lfo0Source", this, 0)
     {
         addAndMakeVisible(&oscSet);
         addAndMakeVisible(&lfo0);

@@ -12,14 +12,14 @@
 #include "SpectrumParameterSet.h"
 
 //==============================================================================
-SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values, juce::DragAndDropContainer* container) :
+SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values, juce::DragAndDropContainer* container, SpectrumTable1AudioProcessor& proc) :
 graph(values),
 envSliders(index),
 parentContainer(container),
 oscIndex(index),
-p0Dest(container, "p0Dest" + juce::String(index), index),
-p1Dest(container, "p1Dest" + juce::String(index), index),
-nDest(container, "nDest" + juce::String(index), index)
+p0Dest(container, "p0Dest", index, proc),
+p1Dest(container, "p1Dest", index, proc),
+nDest(container, "nDest", index, proc)
 {
     addAndMakeVisible(&envSliders);
     addAndMakeVisible(&nSlider);
@@ -92,6 +92,17 @@ juce::AudioProcessorParameterGroup SpectrumParameterSet::createParamGroup()
     auto rId = "releaseParam"+ iStr;
     auto rName = "Oscillator " + iStr + " Release";
     
+    auto p0DepthId = "p1DepthParam" + iStr;
+    auto p0DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
+    auto p1DepthId = "p1DepthParam" + iStr;
+    auto p1DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
+    auto nDepthId = "nDepthParam" + iStr;
+    auto nDepthName = "Oscillator " + iStr + " harmonic count mod depth";
+    
+    newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p0DepthId, p0DepthName, 0.0, 0.0, 1.0));
+    newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p1DepthId, p1DepthName, 0.0, 0.0, 1.0));
+    newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(nDepthId, nDepthName, 0.0, 0.0, 1.0));
+    
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(nId, nName, 1.0, 40.0, 6.0));
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p0Id, p0Name, 0.0, 15.0, 1.0));
     newGroup.addChild(std::make_unique<juce::AudioParameterFloat>(p1Id, p1Name, 1.0, 15.0, 1.0));
@@ -140,6 +151,11 @@ void SpectrumParameterSet::attachToTree(juce::AudioProcessorValueTreeState* pTre
     rAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree,
                                                                            "releaseParam" + iStr,
                                                                                   envSliders.rSlider));
+    p0DAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "p0DepthParam" + iStr, p0Dest.depthSlider));
+    
+    p1DAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "p1DepthParam" + iStr, p1Dest.depthSlider));
+    
+    nDAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, "nDepthParam" + iStr, nDest.depthSlider));
     
     
 }

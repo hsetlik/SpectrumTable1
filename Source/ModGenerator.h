@@ -41,18 +41,13 @@ public:
     {
         lfoRate = newRate;
     }
-    void setDepth(float newDepth)
-    {
-        depth = newDepth;
-    }
     float getNextSampleValue() override
     {
         float sample = ((osc.sinebuf(lfoRate) + 1.0f) / 2.0f); //changes range from -1, 1 to 0, 1
-        return (sample * depth);
+        return sample;
     }
     juce::String typeId;
 private:
-    float depth = 1.0f;
     float lfoRate = 0;
     maxiOsc osc;
 };
