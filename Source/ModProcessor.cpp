@@ -28,7 +28,12 @@ void OscillatorModHandler::applyP0Mod()
         for(int i = 0; i < p0SourceIds.size(); ++i)
         {
             if(p0SourceIds[i] == "lfo0Source")
-                *p0Target += lfoGen0.getNextSampleValue();
+            {
+                float maxMod = 15.0 - *p0Target;
+                float delta = maxMod * lfoGen0.getNextSampleValue();
+                *p0Target += delta;
+                
+            }
         }
     }
 }
@@ -40,7 +45,11 @@ void OscillatorModHandler::applyP1Mod()
         for(int i = 0; i < p1SourceIds.size(); ++i)
         {
             if(p1SourceIds[i] == "lfo0Source")
-                *p1Target += lfoGen0.getNextSampleValue();
+            {
+                float maxMod = 15.0 - *p1Target;
+                float delta = maxMod * lfoGen0.getNextSampleValue();
+                *p1Target += delta;
+            }
         }
     }
 }
@@ -52,7 +61,11 @@ void OscillatorModHandler::applyNMod()
         for(int i = 0; i < nSourceIds.size(); ++i)
         {
             if(nSourceIds[i] == "lfo0Source")
-                *nTarget += floor(lfoGen0.getNextSampleValue());
+            {
+                float maxMod = 40.0 - *nTarget;
+                float delta = maxMod * floor(lfoGen0.getNextSampleValue());
+                *nTarget += floor(delta);
+            }
         }
     }
 }

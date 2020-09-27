@@ -237,7 +237,7 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setP0Depth(tree.getRawParameterValue(p0DepthName), n);
                 thisVoice->setP1Depth(tree.getRawParameterValue(p1DepthName), n);
                 thisVoice->setNDepth(tree.getRawParameterValue(nDepthName), n);
-                thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName), 0);
+                thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName), n);
                 
             }
         }
