@@ -37,7 +37,7 @@ public:
         return (double)1.0f / (((p0 * index) + p1) - (p1 - 1.0f));
     }
 private:
-    int index;
+    const int index;
 };
 
 class HarmonicOscillator

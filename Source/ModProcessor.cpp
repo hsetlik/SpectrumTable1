@@ -52,7 +52,7 @@ void OscillatorModHandler::applyNMod()
         for(int i = 0; i < nSourceIds.size(); ++i)
         {
             if(nSourceIds[i] == "lfo0Source")
-                *nTarget += lfoGen0.getNextSampleValue();
+                *nTarget += floor(lfoGen0.getNextSampleValue());
         }
     }
 }

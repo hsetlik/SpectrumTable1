@@ -29,7 +29,7 @@ HarmonicOscillator::HarmonicOscillator(int maxOvertones) : maxHarmonicCount(maxO
 float HarmonicOscillator::getNextSample()
 {
     float returnSample = 0.0f;
-    for(int i = 0; i < currentHarmonicCount; ++i)
+    for(int i = 0; i < (int)floor(currentHarmonicCount); ++i)
     {
         //add something to recalculate p1, p2, and n based on active modulations here
         double newFreq;
