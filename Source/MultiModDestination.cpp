@@ -12,8 +12,10 @@
 
 void MultiDepthSlider::addSource(juce::String sourceId)
 {
-    depthSliders.add(new DepthSlider(sourceId, parentIsVertical));
-    addTab(sourceId + "tab", tabBkgnd, depthSliders.getLast(), false);
+    depthSliders.add(new DepthSlider(sourceId, destId, parentIsVertical, oscIndex));
+    addTab(sourceId, tabBkgnd, depthSliders.getLast(), false);
+    juce::Slider* dSlider = depthSliders.getLast();
+    dSlider->addListener(listener);
 }
 
 void MultiDepthSlider::mouseDown(const juce::MouseEvent &e)

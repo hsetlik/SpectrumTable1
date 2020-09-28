@@ -22,12 +22,12 @@ const int totalOscillators = 3;
 class OscillatorSet  : public juce::TabbedComponent
 {
 public:
-    OscillatorSet(SpectrumTable1AudioProcessor& proc, juce::DragAndDropContainer* container) :
+    OscillatorSet(SpectrumTable1AudioProcessor& proc, juce::DragAndDropContainer* container, juce::Slider::Listener* lstnr) :
     juce::TabbedComponent(juce::TabbedButtonBar::TabsAtTop),
     processor(proc),
-    pSet1(0, &proc.allGraphValues[0], container, proc),
-    pSet2(1, &proc.allGraphValues[1], container, proc),
-    pSet3(2, &proc.allGraphValues[2], container, proc)
+    pSet1(0, &proc.allGraphValues[0], container, proc, lstnr),
+    pSet2(1, &proc.allGraphValues[1], container, proc, lstnr),
+    pSet3(2, &proc.allGraphValues[2], container, proc, lstnr)
     {
         setBoundsRelative(0.0f, 0.0f, 1.0f, 1.0f);
         setTabBarDepth(25);

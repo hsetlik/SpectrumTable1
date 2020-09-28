@@ -45,3 +45,13 @@ juce::DragAndDropTarget::SourceDetails ModParentComponent::getActiveSourceDetail
     auto details = juce::DragAndDropTarget::SourceDetails(activeDesc, activeComp, relativePoint);
     return details;
 }
+
+//this will call some function in the processor to assign the new slider depth values to each voice
+void ModParentComponent::sliderValueChanged(juce::Slider* slider)
+{
+    DepthSlider* dSlider = dynamic_cast<DepthSlider*>(slider);
+    int changedIndex = dSlider->oscIndex;
+    juce::String newDestId = dSlider->destId;
+    juce::String newSourceId = dSlider ->sourceId;
+    audioProcessor.setModDepth(newSourceId, newDestId, changedIndex, dSlider->getValue());
+}

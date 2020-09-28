@@ -12,67 +12,49 @@
 #include <JuceHeader.h>
 #include "ModGenerator.h"
 
-/* TODO
- -the synthVoice should create one of these
- for each oscillator
- -the synthVoice needs to have functions which take
- tree parameter and index to assign settings on the ModGenerator objects
- */
-class OscillatorModHandler
+
+class ModSourceProcessor //each destination that a generator has creates its own ModSourceProcessor
 {
 public:
     //functions
-    OscillatorModHandler(float* P0, float* P1, float* N, int oscIndex);
-    ~OscillatorModHandler() {}
+    ModSourceProcessor(ModGenerator* gen) : generator(gen)
+    {
+        
+    }
+    ~ModSourceProcessor() {}
+    void setDepth(float newDepth)
+    {
+        depth = newDepth;
+    }
+    float getNextSampleValue()
+    {
+        return (generator->getNextSampleValue()) * depth;
+    }
     //data
-    bool p1HasSource = false;
-    bool p0HasSource = false;
-    bool nHasSource = false;
-    int index;
-    float* p1Target;
-    float* p0Target;
-    float* nTarget;
-    //these need to somehow get called by the appropriate itemDropped functions in the ModDestination component
-    void addP0Source(juce::String sourceId)
+    float depth = 1.0f;
+    juce::String sourceId;
+    ModGenerator* generator;
+};
+
+
+
+class ModDestProcessor
+{
+public:
+    //functions
+    ModDestProcessor(juce::String dId, int index, AllGenerators* gens) : destId(dId), oscIndex(index), allGens(gens)
     {
-        p0SourceIds.push_back(sourceId);
-        if(p0HasSource == false)
-            p0HasSource = true;
+       
     }
-    void addP1Source(juce::String sourceId)
-    {
-        p1SourceIds.push_back(sourceId);
-        if(p1HasSource == false)
-            p1HasSource = true;
-    }
-    void addNSource(juce::String sourceId)
-    {
-        nSourceIds.push_back(sourceId);
-        if(nHasSource == false)
-            nHasSource = true;
-    }
-    void applyP0Mod();
-    void setP0Depth(float newDepth)
-    {
-        p0ModDepth = newDepth;
-    }
-    float p0ModDepth;
-    void applyP1Mod();
-    void setP1Depth(float newDepth)
-    {
-        p1ModDepth = newDepth;
-    }
-    float p1ModDepth;
-    void applyNMod();
-    void setNDepth(float newDepth)
-    {
-        nModDepth = newDepth;
-    }
-    float nModDepth;
-    void applyAllMods();
-    //these store the idStrings for each of the mod sources arrached to each parameter of the osc
-    std::vector<juce::String> p1SourceIds;
-    std::vector<juce::String> p0SourceIds;
-    std::vector<juce::String> nSourceIds;
-    LfoProcessor lfoGen0;
+    ~ModDestProcessor() {}
+    
+    //this calls to the
+    void addSource(juce::String sourceId);
+    float getParameterDelta(); //returns the value to be added to the target parameter value this sample
+    //data
+    AllGenerators* allGens;
+    juce::String destId;
+    int oscIndex;
+    juce::OwnedArray<ModSourceProcessor> sources;
+private:
 };

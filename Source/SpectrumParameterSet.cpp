@@ -12,13 +12,13 @@
 #include "SpectrumParameterSet.h"
 
 //==============================================================================
-SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values, juce::DragAndDropContainer* container, SpectrumTable1AudioProcessor& proc) :
+SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values, juce::DragAndDropContainer* container, SpectrumTable1AudioProcessor& proc, juce::Slider::Listener* lstnr) :
+nSlider("nDest", false, 1.0f, 40.0f, index, lstnr),
+p0Slider("p0Dest", false, 1.0f, 15.0f, index, lstnr),
+p1Slider("p1Dest" , false, 1.0f, 15.0f, index, lstnr),
 graph(values),
 envSliders(index),
 parentContainer(container),
-nSlider("nDest" + juce::String(index), false, 1.0f, 40.0f),
-p0Slider("p0Dest" + juce::String(index), false, 1.0f, 15.0f),
-p1Slider("p1Dest" + juce::String(index), false, 1.0f, 15.0f),
 oscIndex(index)
 
 

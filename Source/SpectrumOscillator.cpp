@@ -9,7 +9,13 @@
 */
 
 #include "SpectrumOscillator.h"
-HarmonicOscillator::HarmonicOscillator(int maxOvertones) : maxHarmonicCount(maxOvertones)
+
+HarmonicOscillator::HarmonicOscillator(int maxOvertones, int index, AllGenerators* genSet) :
+p1ModProc("p1Dest", index, gens),
+p0ModProc("p0Dest", index, gens),
+nModProc("nDest", index, gens),
+gens(genSet),
+maxHarmonicCount(maxOvertones)
 {
     /*
     envelope1.setAttack(20.0f);

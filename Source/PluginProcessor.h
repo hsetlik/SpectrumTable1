@@ -54,7 +54,7 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
+    void setModDepth(juce::String sourceId, juce::String destId, int index, float value);
     void addVoiceModulation(juce::String sourceId, juce::String destId);
     
     SpectrumVoice* thisVoice;

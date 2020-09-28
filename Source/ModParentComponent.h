@@ -19,10 +19,10 @@
 //==============================================================================
 /*
 */
-class ModParentComponent  : public juce::Component, public juce::DragAndDropContainer
+class ModParentComponent  : public juce::Component, public juce::DragAndDropContainer, public juce::Slider::Listener
 {
 public:
-    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc, this), lfo0("lfo0Source", this, 0)
+    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc, this, this), lfo0("lfo0Source", this, 0), audioProcessor(proc)
     {
         addAndMakeVisible(&oscSet);
         addAndMakeVisible(&lfo0);
@@ -35,12 +35,13 @@ public:
         oscSet.attachAllToTree(state);
         lfo0.attachToTree(state);
     }
-    
+    void sliderValueChanged(juce::Slider* slider) override;
     std::vector<ModDestination> allDestinations;
     juce::DragAndDropTarget::SourceDetails getActiveSourceDetails(ModDestination* dest);
     OscillatorSet oscSet;
     LfoComponent lfo0;
     juce::String activeDesc;
+    SpectrumTable1AudioProcessor& audioProcessor;
     
     
 private:

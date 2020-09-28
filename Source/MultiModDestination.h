@@ -16,8 +16,10 @@
 class DepthSlider : public juce::Slider
 {
 public:
-    DepthSlider(juce::String source, bool isVertical) :
-    sourceId(source)
+    DepthSlider(juce::String source, juce::String dest, bool isVertical, int index) :
+    sourceId(source),
+    oscIndex(index),
+    destId(dest)
     {
         auto sliderStyle = (isVertical) ? (juce::Slider::LinearVertical) : (juce::Slider::LinearHorizontal);
         setSliderStyle(sliderStyle);
@@ -26,24 +28,29 @@ public:
         setTextBoxStyle(juce::Slider::NoTextBox, true, 0, 0);
     }
     ~DepthSlider() {}
-    juce::String sourceId;
-
+    int oscIndex;
     
+    juce::String sourceId;
+    juce::String destId;
 };
 
 class MultiDepthSlider : public juce::TabbedComponent
 {
 public:
     //functions
-    MultiDepthSlider(juce::String destId, bool isVertical) :
+    MultiDepthSlider(juce::String destId, bool isVertical, int index, juce::Slider::Listener* lstnr) :
     juce::TabbedComponent( (isVertical) ? juce::TabbedButtonBar::TabsAtRight : juce::TabbedButtonBar::TabsAtBottom),
-    parentIsVertical(isVertical)
+    parentIsVertical(isVertical),
+    oscIndex(index),
+    listener(lstnr)
     {
         tabBkgnd = color.RGBColor(110, 110, 110);
         setTabBarDepth(6);
     }
     void addSource(juce::String sourceId);
     void mouseDown(const juce::MouseEvent &e) override;
+    int oscIndex;
+    juce::Slider::Listener* listener;
     //data
     bool parentIsVertical;
     juce::OwnedArray<juce::String> sourceIds;
@@ -59,12 +66,14 @@ class MultiModDestination : public juce::DragAndDropTarget, public juce::Compone
 {
 public:
     //functions
-    MultiModDestination(juce::String idStr, bool isVertical, float min, float max) :
+    MultiModDestination(juce::String idStr, bool isVertical, float min, float max, int index, juce::Slider::Listener* lstnr) :
     destSliderIsVertical(isVertical),
     paramMin(min),
     paramMax(max),
-    depthSliderSet(idStr, isVertical),
-    destId(idStr)
+    depthSliderSet(idStr, isVertical, index, lstnr),
+    destId(idStr),
+    oscIndex(index),
+    listener(lstnr)
     {
         addAndMakeVisible(&paramSlider);
         addAndMakeVisible(&depthSliderSet);
@@ -77,7 +86,6 @@ public:
     void resized() override;
     void paint(juce::Graphics& g) override
     {
-        juce::Rectangle<float> area = getLocalBounds().toFloat();
         g.setColour(juce::Colours::darkgrey);
         g.fillRect(paramSlider.getBounds());
         
@@ -101,12 +109,14 @@ public:
     }
     
     //data
+    juce::Slider::Listener* listener;
     MultiDepthSlider depthSliderSet;
     bool destSliderIsVertical;
     float paramMin;
     float paramMax;
     juce::String destId;
     juce::Slider paramSlider;
+    int oscIndex;
 private:
     ColorCreator color;
 };

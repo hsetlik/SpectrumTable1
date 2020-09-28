@@ -33,35 +33,12 @@ public:
     {
         for(int i = 0; i < 3; ++i)
         {
-            allOscs.add(new HarmonicOscillator(40));
-            float* rP0 = &allOscs.getLast()->currentP0;
-            float* rP1 = &allOscs.getLast()->currentP1;
-            float* rN = &allOscs.getLast()->currentHarmonicCount;
-            oscHandlers.add(new OscillatorModHandler(rP0, rP1, rN, i));
+            allOscs.add(new HarmonicOscillator(40, i, &allGens));
         }
     }
     
     //MODULATION INPUT FUNCTIONS - each ModGenerator  parameter in the handler needs a function
-    void setLfo0Rate(std::atomic<float>* value, int index)
-    {
-        OscillatorModHandler* thisHandler = oscHandlers[index];
-        thisHandler->lfoGen0.setRate(*value);
-    }
-    void setP0Depth(std::atomic<float>* value, int index)
-    {
-        OscillatorModHandler* thisHandler = oscHandlers[index];
-        thisHandler->setP0Depth(*value);
-    }
-    void setP1Depth(std::atomic<float>* value, int index)
-    {
-        OscillatorModHandler* thisHandler = oscHandlers[index];
-        thisHandler->setP1Depth(*value);
-    }
-    void setNDepth(std::atomic<float>* value, int index)
-    {
-        OscillatorModHandler* thisHandler = oscHandlers[index];
-        thisHandler->setNDepth(*value);
-    }
+   
     
     //PARAMETER INPUT FUNCTIONS
     void setVoiceP0(std::atomic<float>* value, int index)
@@ -175,7 +152,6 @@ public:
             float sum = 0.0f;
             for(int g = 0; g < 3; ++g)
             {
-                oscHandlers[g]->applyAllMods();
                 float newPreEnv = allOscs[g]->getNextSample();
                 sum += (allOscs[g]->envelope1.adsr(newPreEnv, allOscs[g]->envelope1.trigger));
             }
@@ -195,5 +171,5 @@ public:
     }
     float newSample = 0.0f;
     juce::OwnedArray<HarmonicOscillator> allOscs;
-    juce::OwnedArray<OscillatorModHandler> oscHandlers;
+    AllGenerators allGens;
 };

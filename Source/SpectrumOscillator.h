@@ -44,16 +44,22 @@ class HarmonicOscillator
 {
 public:
     //functions
-    HarmonicOscillator(int maxOvertones);
+    HarmonicOscillator(int maxOvertones, int index, AllGenerators* genSet);
     ~HarmonicOscillator() {}
     float getNextSample();
+    void updateModParameters();
+    void applyModulations();
     void setFundamental(float newFundamental)
     {
         fundamental = newFundamental;
     }
     //data
+    AllGenerators* gens;
     std::vector<HarmonicData> harmonics;
     std::vector<maxiOsc> oscillators;
+    ModDestProcessor p1ModProc;
+    ModDestProcessor p0ModProc;
+    ModDestProcessor nModProc;
     float currentP1;
     float currentP0;
     float currentHarmonicCount;
@@ -63,9 +69,6 @@ public:
     bool p0Snap = false;
     maxiEnv envelope1;
     maxiEnv envelope2;
-    //stuff for modulation
-    bool p0HasSources = false;
-    bool p1HasSources = false;
 private:
     float fundamental = 0.0f;
     

@@ -220,7 +220,6 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setVoiceP1(tree.getRawParameterValue(p1Name), n);
                 thisVoice->setAlgChoice(tree.getRawParameterValue(algName), n);
                 
-                thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName), n);
             }
         }
     }
@@ -271,26 +270,13 @@ void SpectrumTable1AudioProcessor::setStateInformation (const void* data, int si
 
 void SpectrumTable1AudioProcessor::addVoiceModulation(juce::String sourceId, juce::String destId)
 {
-    for(int i = 0; i < synth.getNumVoices(); ++i)
-    {
-        if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
-        {
-            for(int n = 0; n < 3; ++n)
-            {
-                juce::String p0Dest = "p0Dest" + juce::String(n);
-                juce::String p1Dest = "p1Dest" + juce::String(n);
-                juce::String nDest = "nDest" + juce::String(n);
-                if(destId == p0Dest)
-                    thisVoice->oscHandlers[n]->addP0Source(sourceId);
-                else if(destId == p1Dest)
-                    thisVoice->oscHandlers[n]->addP1Source(sourceId);
-                else if(destId == nDest)
-                    thisVoice->oscHandlers[n]->addNSource(sourceId);
-            }
-        }
-    }
     
     
+}
+
+void SpectrumTable1AudioProcessor::setModDepth(juce::String sourceId, juce::String destId, int index, float value)
+{
+    //loop through all the modulations until one with matching sourceId, destId, and index is found
 }
 //==============================================================================
 // This creates new instances of the plugin..

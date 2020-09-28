@@ -18,7 +18,7 @@
 class ModGenerator
 {
 public:
-    ModGenerator()
+    ModGenerator(juce::String type) : typeId(type)
     {
     }
     virtual ~ModGenerator() {}
@@ -26,13 +26,14 @@ public:
     {
         return 0.0f;
     }
+    juce::String typeId;
     
 };
 
 class LfoProcessor : public ModGenerator
 {
 public:
-    LfoProcessor(juce::String idStr) : typeId(idStr)
+    LfoProcessor(juce::String idStr) : ModGenerator(idStr)
     {
         lfoRate = 1.0f;
     }
@@ -46,8 +47,26 @@ public:
         float sample = ((osc.sinebuf(lfoRate) + 1.0f) / 2.0f); //changes range from -1, 1 to 0, 1
         return sample;
     }
-    juce::String typeId;
 private:
     float lfoRate = 0;
     maxiOsc osc;
 };
+
+
+class AllGenerators
+//each voice needs to own one of these, it stores all the ModGenerator subclasses and allows the oscillators to be intialized with a reference to this object
+{
+public:
+    AllGenerators()
+    {
+        //every mod source for the synth needs to be added here like so
+        gens.add(new LfoProcessor("lfo0Source"));
+        pLfo0 = dynamic_cast<LfoProcessor*>(gens.getLast());
+    }
+    ~AllGenerators() {}
+    juce::OwnedArray<ModGenerator> gens;
+    LfoProcessor* pLfo0;
+};
+
+
+
