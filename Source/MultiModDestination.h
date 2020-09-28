@@ -17,8 +17,8 @@ class DepthSlider : public juce::Slider
 {
 public:
     DepthSlider(juce::String source, juce::String dest, bool isVertical, int index) :
-    sourceId(source),
     oscIndex(index),
+    sourceId(source),
     destId(dest)
     {
         auto sliderStyle = (isVertical) ? (juce::Slider::LinearVertical) : (juce::Slider::LinearHorizontal);
@@ -38,16 +38,17 @@ class MultiDepthSlider : public juce::TabbedComponent
 {
 public:
     //functions
-    MultiDepthSlider(juce::String destId, bool isVertical, int index, juce::Slider::Listener* lstnr) :
+    MultiDepthSlider(juce::String dest, bool isVertical, int index, juce::Slider::Listener* lstnr) :
     juce::TabbedComponent( (isVertical) ? juce::TabbedButtonBar::TabsAtRight : juce::TabbedButtonBar::TabsAtBottom),
     parentIsVertical(isVertical),
     oscIndex(index),
-    listener(lstnr)
+    listener(lstnr),
+    destId(dest)
     {
         tabBkgnd = color.RGBColor(110, 110, 110);
         setTabBarDepth(6);
     }
-    void addSource(juce::String sourceId);
+    void addDepthSlider(juce::String sourceId);
     void mouseDown(const juce::MouseEvent &e) override;
     int oscIndex;
     juce::Slider::Listener* listener;
@@ -66,7 +67,8 @@ class MultiModDestination : public juce::DragAndDropTarget, public juce::Compone
 {
 public:
     //functions
-    MultiModDestination(juce::String idStr, bool isVertical, float min, float max, int index, juce::Slider::Listener* lstnr) :
+    MultiModDestination(juce::String idStr, bool isVertical, float min, float max, int index, juce::Slider::Listener* lstnr, SpectrumTable1AudioProcessor& proc) :
+    audioProcessor(proc),
     destSliderIsVertical(isVertical),
     paramMin(min),
     paramMax(max),
@@ -109,6 +111,7 @@ public:
     }
     
     //data
+    SpectrumTable1AudioProcessor& audioProcessor;
     juce::Slider::Listener* listener;
     MultiDepthSlider depthSliderSet;
     bool destSliderIsVertical;

@@ -15,7 +15,7 @@ void ModDestProcessor::addSource(juce::String sourceId)
 {
     //IMPORTANT every mod source named in the AllGenerators class needs to be checked in an else if statement here
     if(sourceId == "lfo0Source")
-        sources.add(new ModSourceProcessor(allGens->pLfo0));
+        sources.add(new ModSourceProcessor(sourceId, allGens->pLfo0));
 }
 
 float ModDestProcessor::getParameterDelta()
@@ -27,6 +27,8 @@ float ModDestProcessor::getParameterDelta()
         {
             sum += sources[i]->getNextSampleValue();
         }
+        return (float)(sum / sources.size());
     }
-    return sum;
+    else
+        return 0.0f;
 }

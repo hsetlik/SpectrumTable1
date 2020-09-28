@@ -268,15 +268,78 @@ void SpectrumTable1AudioProcessor::setStateInformation (const void* data, int si
     // whose contents will have been created by the getStateInformation() call.
 }
 
-void SpectrumTable1AudioProcessor::addVoiceModulation(juce::String sourceId, juce::String destId)
+void SpectrumTable1AudioProcessor::addVoiceModulation(juce::String sourceId, juce::String destId, int index)
 {
-    
-    
+    //loop through all voices
+    for(int voice = 0; voice < synth.getNumVoices(); ++voice)
+    {
+    SpectrumVoice* currentVoice = dynamic_cast<SpectrumVoice*>(synth.getVoice(voice));
+    //grab the correct oscillator for the index
+    HarmonicOscillator* currentOsc = currentVoice->allOscs[index];
+    //grab the correct ModDestProcessor for the ID
+    ModDestProcessor* currentDest;
+        if(destId == "p0Dest")
+            currentDest = &currentOsc->p0ModProc;
+        else if(destId == "p1Dest")
+            currentDest = &currentOsc->p1ModProc;
+        else if(destId == "nDest")
+            currentDest = &currentOsc->nModProc;
+        else
+            currentDest = nullptr;
+    //ModDestProcessor.addSource(sourceId)
+        currentDest->addSource(sourceId);
+    }
 }
 
 void SpectrumTable1AudioProcessor::setModDepth(juce::String sourceId, juce::String destId, int index, float value)
 {
     //loop through all the modulations until one with matching sourceId, destId, and index is found
+    for(int g = 0; g < synth.getNumVoices(); ++g)
+    {
+        SpectrumVoice* currentVoice = dynamic_cast<SpectrumVoice*>(synth.getVoice(g));
+        for(int oscInd = 0; oscInd < 3; ++oscInd)
+        {
+            if(index == oscInd)
+            {
+               if(destId == "p0Dest")
+               {
+                   for(int n = 0; n < currentVoice->allOscs[oscInd]->p0ModProc.sources.size(); ++n)
+                   {
+                       juce::String checkAgainst = currentVoice->allOscs[oscInd]->p0ModProc.sources[n]->sourceId;
+                       if(sourceId == checkAgainst)
+                       {
+                           currentVoice->allOscs[oscInd]->p0ModProc.sources[n]->setDepth(value);
+                       }
+                   }
+                   
+               }
+                else if(destId == "p1Dest")
+                {
+                    for(int n = 0; n < currentVoice->allOscs[oscInd]->p1ModProc.sources.size(); ++n)
+                    {
+                        juce::String checkAgainst = currentVoice->allOscs[oscInd]->p1ModProc.sources[n]->sourceId;
+                        if(sourceId == checkAgainst)
+                        {
+                            currentVoice->allOscs[oscInd]->p1ModProc.sources[n]->setDepth(value);
+                        }
+                    }
+                    
+                }
+                else if(destId == "nDest")
+                {
+                    for(int n = 0; n < currentVoice->allOscs[oscInd]->nModProc.sources.size(); ++n)
+                    {
+                        juce::String checkAgainst = currentVoice->allOscs[oscInd]->nModProc.sources[n]->sourceId;
+                        if(sourceId == checkAgainst)
+                        {
+                            currentVoice->allOscs[oscInd]->nModProc.sources[n]->setDepth(value);
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
 }
 //==============================================================================
 // This creates new instances of the plugin..

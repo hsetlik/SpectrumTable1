@@ -10,7 +10,7 @@
 
 #include "SpectrumOscillator.h"
 
-HarmonicOscillator::HarmonicOscillator(int maxOvertones, int index, AllGenerators* genSet) :
+HarmonicOscillator::HarmonicOscillator(int maxOvertones, int index, VoiceModGenerators* genSet) :
 p1ModProc("p1Dest", index, gens),
 p0ModProc("p0Dest", index, gens),
 nModProc("nDest", index, gens),
@@ -31,13 +31,41 @@ maxHarmonicCount(maxOvertones)
         oscillators.push_back(*newOsc);
     }
 }
+void HarmonicOscillator::applyModulations()
+{
+    auto p0Delta = p0ModProc.getParameterDelta();
+    auto maxIncrease = 15.0 - currentP0;
+    auto maxDecrease = currentP0;
+    if(p0Delta > 0)
+        currentP0 += (maxIncrease * p0Delta);
+    else
+        currentP0 += (maxDecrease * p0Delta);
+    
+    auto p1Delta = p1ModProc.getParameterDelta();
+    auto p1maxIncrease = 15.0 - currentP1;
+    auto p1maxDecrease = currentP1;
+    if(p1Delta > 0)
+        currentP1 += (p1maxIncrease * p1Delta);
+    else
+        currentP1 += (p1maxDecrease * p1Delta);
+    
+    auto nDelta = nModProc.getParameterDelta();
+    auto nMaxIncrease = 40.0 - currentHarmonicCount;
+    auto nMaxDecrease = currentHarmonicCount;
+    if(nDelta > 0)
+        currentHarmonicCount += (nMaxIncrease * nDelta);
+    else
+        currentHarmonicCount += (nMaxDecrease * nDelta);
+    
+    
+}
 
 float HarmonicOscillator::getNextSample()
 {
+    applyModulations();
     float returnSample = 0.0f;
     for(int i = 0; i < (int)floor(currentHarmonicCount); ++i)
     {
-        //add something to recalculate p1, p2, and n based on active modulations here
         double newFreq;
         double newAmp;
         if(secondAlgOn)

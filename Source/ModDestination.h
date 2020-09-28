@@ -39,7 +39,7 @@ public:
         setCenterColor(newSource->getCenterColor());
         sources.push_back(newSource);
         juce::String sourceId = newSource->description;
-        processor.addVoiceModulation(sourceId, idString);
+       
     }
     void itemDragEnter(const juce::DragAndDropTarget::SourceDetails &dragSourceDetails) override
     {

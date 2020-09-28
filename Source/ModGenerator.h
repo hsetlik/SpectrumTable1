@@ -53,17 +53,17 @@ private:
 };
 
 
-class AllGenerators
+class VoiceModGenerators
 //each voice needs to own one of these, it stores all the ModGenerator subclasses and allows the oscillators to be intialized with a reference to this object
 {
 public:
-    AllGenerators()
+    VoiceModGenerators()
     {
         //every mod source for the synth needs to be added here like so
         gens.add(new LfoProcessor("lfo0Source"));
         pLfo0 = dynamic_cast<LfoProcessor*>(gens.getLast());
     }
-    ~AllGenerators() {}
+    ~VoiceModGenerators() {}
     juce::OwnedArray<ModGenerator> gens;
     LfoProcessor* pLfo0;
 };

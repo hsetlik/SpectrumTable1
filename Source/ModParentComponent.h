@@ -36,7 +36,6 @@ public:
         lfo0.attachToTree(state);
     }
     void sliderValueChanged(juce::Slider* slider) override;
-    std::vector<ModDestination> allDestinations;
     juce::DragAndDropTarget::SourceDetails getActiveSourceDetails(ModDestination* dest);
     OscillatorSet oscSet;
     LfoComponent lfo0;

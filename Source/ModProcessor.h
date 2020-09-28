@@ -17,7 +17,7 @@ class ModSourceProcessor //each destination that a generator has creates its own
 {
 public:
     //functions
-    ModSourceProcessor(ModGenerator* gen) : generator(gen)
+    ModSourceProcessor(juce::String source, ModGenerator* gen) : generator(gen)
     {
         
     }
@@ -42,7 +42,7 @@ class ModDestProcessor
 {
 public:
     //functions
-    ModDestProcessor(juce::String dId, int index, AllGenerators* gens) : destId(dId), oscIndex(index), allGens(gens)
+    ModDestProcessor(juce::String dId, int index, VoiceModGenerators* gens) : destId(dId), oscIndex(index), allGens(gens)
     {
        
     }
@@ -52,7 +52,7 @@ public:
     void addSource(juce::String sourceId);
     float getParameterDelta(); //returns the value to be added to the target parameter value this sample
     //data
-    AllGenerators* allGens;
+    VoiceModGenerators* allGens;
     juce::String destId;
     int oscIndex;
     juce::OwnedArray<ModSourceProcessor> sources;

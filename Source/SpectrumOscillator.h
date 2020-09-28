@@ -44,7 +44,7 @@ class HarmonicOscillator
 {
 public:
     //functions
-    HarmonicOscillator(int maxOvertones, int index, AllGenerators* genSet);
+    HarmonicOscillator(int maxOvertones, int index, VoiceModGenerators* genSet);
     ~HarmonicOscillator() {}
     float getNextSample();
     void updateModParameters();
@@ -54,7 +54,7 @@ public:
         fundamental = newFundamental;
     }
     //data
-    AllGenerators* gens;
+    VoiceModGenerators* gens;
     std::vector<HarmonicData> harmonics;
     std::vector<maxiOsc> oscillators;
     ModDestProcessor p1ModProc;

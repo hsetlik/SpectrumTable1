@@ -10,7 +10,7 @@
 
 #include "MultiModDestination.h"
 
-void MultiDepthSlider::addSource(juce::String sourceId)
+void MultiDepthSlider::addDepthSlider(juce::String sourceId)
 {
     depthSliders.add(new DepthSlider(sourceId, destId, parentIsVertical, oscIndex));
     addTab(sourceId, tabBkgnd, depthSliders.getLast(), false);
@@ -33,7 +33,8 @@ void MultiModDestination::itemDropped(const juce::DragAndDropTarget::SourceDetai
         juce::Component* sourceComponent = dragSourceDetails.sourceComponent.get();
         ModSourceComponent* newSource = dynamic_cast<ModSourceComponent*>(sourceComponent);
         juce::String sourceId = newSource->description;
-        depthSliderSet.addSource(sourceId);
+        depthSliderSet.addDepthSlider(sourceId);
+        audioProcessor.addVoiceModulation(sourceId, destId, oscIndex);
     }
 }
 bool MultiModDestination::isInterestedInDragSource(const juce::DragAndDropTarget::SourceDetails &dragSourceDetails)

@@ -147,6 +147,10 @@ public:
     //===============================================
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
     {
+        for(int n = 0; n > 3; ++n)
+        {
+            allOscs[n]->applyModulations();
+        }
         for(int i = 0; i < numSamples; ++i)
         {
             float sum = 0.0f;
@@ -171,5 +175,5 @@ public:
     }
     float newSample = 0.0f;
     juce::OwnedArray<HarmonicOscillator> allOscs;
-    AllGenerators allGens;
+    VoiceModGenerators allGens;
 };
