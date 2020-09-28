@@ -36,17 +36,6 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     juce::String sName = "Oscillator " + iStr + " Sustain";
     juce::String rId = "releaseParam" + iStr;
     juce::String rName = "Oscillator " + iStr + " Release";
-        
-    juce::String p0DepthId = "p0DepthParam" + iStr;
-    juce::String p0DepthName = "Oscillator " + iStr + " Parameter 0 mod depth";
-    juce::String p1DepthId = "p1DepthParam" + iStr;
-    juce::String p1DepthName = "Oscillator " + iStr + " Parameter 1 mod depth";
-    juce::String nDepthId = "nDepthParam" + iStr;
-    juce::String nDepthName = "Oscillator " + iStr + " harmonic count mod depth";
-    
-    layout.add(std::make_unique<juce::AudioParameterFloat>(p0DepthId, p0DepthName, 0.0, 1.0, 0.0));
-    layout.add(std::make_unique<juce::AudioParameterFloat>(p1DepthId, p1DepthName, 0.0, 1.0, 0.0));
-    layout.add(std::make_unique<juce::AudioParameterFloat>(nDepthId, nDepthName, 0.0, 1.0, 0.0));
     
     layout.add(std::make_unique<juce::AudioParameterFloat>(aId, aName, 1.0, 15000.0, 25.0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(dId, dName, 1.0, 15000.0, 65.0));
@@ -218,9 +207,6 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 juce::String p1Name = "p1Param" + nStr;
                 juce::String algName = "algParam" + nStr;
                 juce::String p1SnapName = "p1SnapParam" + nStr;
-                juce::String p0DepthName = "p0DepthParam" + nStr;
-                juce::String p1DepthName = "p1DepthParam" + nStr;
-                juce::String nDepthName = "nDepthParam" + nStr;
                 juce::String lfoRateName = "lfoParam0";
                
                 thisVoice->setVoiceP1Snap(tree.getRawParameterValue(p1SnapName), n);
@@ -234,9 +220,6 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setVoiceP1(tree.getRawParameterValue(p1Name), n);
                 thisVoice->setAlgChoice(tree.getRawParameterValue(algName), n);
                 
-                thisVoice->setP0Depth(tree.getRawParameterValue(p0DepthName), n);
-                thisVoice->setP1Depth(tree.getRawParameterValue(p1DepthName), n);
-                thisVoice->setNDepth(tree.getRawParameterValue(nDepthName), n);
                 thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName), n);
             }
         }
@@ -290,19 +273,24 @@ void SpectrumTable1AudioProcessor::addVoiceModulation(juce::String sourceId, juc
 {
     for(int i = 0; i < synth.getNumVoices(); ++i)
     {
-        SpectrumVoice* thisVoice = dynamic_cast<SpectrumVoice*>(synth.getVoice(i));
-        for(int n = 0; n < 3; ++n)
+        if((thisVoice =  dynamic_cast<SpectrumVoice*>(synth.getVoice(i))))
         {
-            OscillatorModHandler* thisHandler = thisVoice->oscHandlers[n];
-            if(destId == "p0Dest")
-                thisHandler->addP0Source(sourceId);
-            else if(destId == "p1Dest")
-                thisHandler->addP1Source(sourceId);
-            else if(destId == "nDest")
-                thisHandler->addNSource(sourceId);
+            for(int n = 0; n < 3; ++n)
+            {
+                juce::String p0Dest = "p0Dest" + juce::String(n);
+                juce::String p1Dest = "p1Dest" + juce::String(n);
+                juce::String nDest = "nDest" + juce::String(n);
+                if(destId == p0Dest)
+                    thisVoice->oscHandlers[n]->addP0Source(sourceId);
+                else if(destId == p1Dest)
+                    thisVoice->oscHandlers[n]->addP1Source(sourceId);
+                else if(destId == nDest)
+                    thisVoice->oscHandlers[n]->addNSource(sourceId);
+            }
         }
-        
     }
+    
+    
 }
 //==============================================================================
 // This creates new instances of the plugin..

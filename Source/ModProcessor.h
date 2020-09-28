@@ -74,5 +74,5 @@ public:
     std::vector<juce::String> p1SourceIds;
     std::vector<juce::String> p0SourceIds;
     std::vector<juce::String> nSourceIds;
-    LfoGenerator lfoGen0;
+    LfoProcessor lfoGen0;
 };

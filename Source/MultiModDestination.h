@@ -99,6 +99,7 @@ public:
     {
         return false;
     }
+    
     //data
     MultiDepthSlider depthSliderSet;
     bool destSliderIsVertical;

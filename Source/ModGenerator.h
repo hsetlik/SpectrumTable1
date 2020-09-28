@@ -29,14 +29,14 @@ public:
     
 };
 
-class LfoGenerator : public ModGenerator
+class LfoProcessor : public ModGenerator
 {
 public:
-    LfoGenerator(juce::String idStr) : typeId(idStr)
+    LfoProcessor(juce::String idStr) : typeId(idStr)
     {
         lfoRate = 1.0f;
     }
-    ~LfoGenerator(){}
+    ~LfoProcessor(){}
     void setRate(float newRate)
     {
         lfoRate = newRate;

@@ -33,11 +33,11 @@ public:
     }
     void updateValue(float newValue)
     {
-        paramValue = newValue;
+        dataValue = newValue;
     }
     float getValue()
     {
-        return paramValue;
+        return dataValue;
     }
     juce::Colour getCenterColor()
     {
@@ -46,7 +46,7 @@ public:
     juce::DragAndDropContainer* parent;
     juce::String description;
 private:
-    float paramValue = 0.0f;
+    float dataValue = 0.0f;
     juce::Colour ringColor = juce::Colours::black;
     juce::Colour centerColor = juce::Colours::skyblue;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModSourceComponent)

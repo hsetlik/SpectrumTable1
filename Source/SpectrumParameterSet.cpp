@@ -16,9 +16,9 @@ SpectrumParameterSet::SpectrumParameterSet(int index, GraphValueSet* values, juc
 graph(values),
 envSliders(index),
 parentContainer(container),
-nSlider("nParam" + juce::String(index), false, 1.0f, 40.0f),
-p0Slider("p0Param" + juce::String(index), false, 1.0f, 15.0f),
-p1Slider("p1Param" + juce::String(index), false, 1.0f, 15.0f),
+nSlider("nDest" + juce::String(index), false, 1.0f, 40.0f),
+p0Slider("p0Dest" + juce::String(index), false, 1.0f, 15.0f),
+p1Slider("p1Dest" + juce::String(index), false, 1.0f, 15.0f),
 oscIndex(index)
 
 
