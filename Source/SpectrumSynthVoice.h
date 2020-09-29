@@ -37,9 +37,10 @@ public:
         }
     }
     
-    //MODULATION INPUT FUNCTIONS - each ModGenerator  parameter in the handler needs a function
-   
-    
+    void setLfo0Rate(std::atomic<float>* value)
+    {
+        allGens.pLfo0->setRate(*value);
+    }
     //PARAMETER INPUT FUNCTIONS
     void setVoiceP0(std::atomic<float>* value, int index)
     {

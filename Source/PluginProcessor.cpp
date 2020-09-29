@@ -214,6 +214,8 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setDecay(tree.getRawParameterValue(dName), n);
                 thisVoice->setSustain(tree.getRawParameterValue(sName), n);
                 thisVoice->setRelease(tree.getRawParameterValue(rName), n);
+                //make synthVoice functions to set modSource parameters
+                thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName));
                 
                 thisVoice->setNumHarmonics(tree.getRawParameterValue(nName), n);
                 thisVoice->setVoiceP0(tree.getRawParameterValue(p0Name), n);
