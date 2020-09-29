@@ -63,24 +63,17 @@ public:
     void attachToTree(juce::AudioProcessorValueTreeState* target)
     {
         juce::String iStr = juce::String(LfoIndex);
-        auto pId = "lfoParam"+ iStr;
+        auto pId = "lfoRateParam"+ iStr;
+        auto typeId = "lfoWaveParam" + iStr;
         freqAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*target, pId, freqSlider));
+        waveformAttach.reset(new juce::AudioProcessorValueTreeState::ComboBoxAttachment(*target, typeId, waveform));
     }
-    juce::AudioProcessorParameterGroup createParamGroup()
-    {
-        auto groupId = "lfo" + juce::String(LfoIndex);
-        auto groupName = "Lfo " + juce::String(LfoIndex);
-        juce::AudioProcessorParameterGroup group(groupId, groupName, "|");
-        auto paramId = "lfoParam" + juce::String(LfoIndex);
-        auto paramName = "LFO " + juce::String(LfoIndex) + " frequency";
-        group.addChild(std::make_unique<juce::AudioParameterFloat>(paramId, paramName, 0.01f, 20.0f, 1.0f));
-        return group;
-    }
-    
     ModSourceComponent modSource;
     int LfoIndex;
     juce::Slider freqSlider;
+    juce::ComboBox waveform;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> freqAttach;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> waveformAttach;
     ColorCreator color;
     
 };

@@ -26,7 +26,7 @@ void ModParentComponent::resized()
 {
     int n = getHeight() / 24;
     oscSet.setBounds(0, 0, getWidth(),18 * n);
-    lfo0.setBounds(0, 18 * n, 4 * n, 6 * n);
+    lfo0.setBounds(0, 18 * n, 8 * n, 6.25 * n);
 }
 
 juce::DragAndDropTarget::SourceDetails ModParentComponent::getActiveSourceDetails(ModDestination* dest)

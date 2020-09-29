@@ -42,12 +42,25 @@ public:
     {
         lfoRate = newRate;
     }
+    void setWaveType(juce::String newType)
+    {
+        currentWaveType = newType;
+    }
     float getNextSampleValue() override
     {
-        float sample = ((osc.sinebuf(lfoRate) + 1.0f) / 2.0f); //changes range from -1, 1 to 0, 1
+        float sample = 0.0;
+        if(currentWaveType == "Sine")
+            sample = ((osc.sinebuf(lfoRate) + 1.0f) / 2.0f); //changes range from -1, 1 to 0, 1
+        else if(currentWaveType == "Saw")
+            sample = ((osc.saw(lfoRate) + 1.0f) / 2.0f);
+        else if(currentWaveType == "Triangle")
+            sample = ((osc.triangle(lfoRate) + 1.0f) / 2.0f);
+        else if(currentWaveType == "Square")
+            sample = ((osc.square(lfoRate) + 1.0f) / 2.0f);
         return sample;
     }
 private:
+    juce::String currentWaveType;
     float lfoRate = 0;
     maxiOsc osc;
 };

@@ -49,9 +49,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     layout.add(std::make_unique<juce::AudioParameterBool>(p1SnapId, p1SnapName, false));
     layout.add(std::make_unique<juce::AudioParameterBool>(p0SnapId, p0SnapName, false));
     }
-    auto lfoId = "lfoParam0";
+    auto lfoId = "lfoRateParam0";
     auto lfoName = "LFO 1 Frequency";
-    layout.add(std::make_unique<juce::AudioParameterFloat>(lfoId, lfoName, 0.01f, 20.0f, 1.0f));
+    juce::NormalisableRange<float> rateRange(0.1f, 20.0f, 0.01f, 0.3f);
+    rateRange.setSkewForCentre(1.5f);
+    layout.add(std::make_unique<juce::AudioParameterFloat>(lfoId, lfoName, rateRange, 1.0f));
+    
+    juce::StringArray wavetypes;
+    wavetypes.add("Sine");
+    wavetypes.add("Saw");
+    wavetypes.add("Triangle");
+    wavetypes.add("Square");
+    auto lfoTypeId = "lfoWaveParam0";
+    auto lfoTypeName = "LFO 1 type";
+    layout.add(std::make_unique<juce::AudioParameterChoice>(lfoTypeId, lfoTypeName, wavetypes, 0));
+    
     return layout;
 }
 
@@ -207,7 +219,8 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 juce::String p1Name = "p1Param" + nStr;
                 juce::String algName = "algParam" + nStr;
                 juce::String p1SnapName = "p1SnapParam" + nStr;
-                juce::String lfoRateName = "lfoParam0";
+                juce::String lfoRateName = "lfoRateParam0";
+                juce::String lfoTypeName = "lfoWaveParam0";
                
                 thisVoice->setVoiceP1Snap(tree.getRawParameterValue(p1SnapName), n);
                 thisVoice->setAttack(tree.getRawParameterValue(aName), n);
@@ -216,6 +229,7 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setRelease(tree.getRawParameterValue(rName), n);
                 //make synthVoice functions to set modSource parameters
                 thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName));
+                thisVoice->setLfo0Wave(tree.getRawParameterValue(lfoTypeName));
                 
                 thisVoice->setNumHarmonics(tree.getRawParameterValue(nName), n);
                 thisVoice->setVoiceP0(tree.getRawParameterValue(p0Name), n);

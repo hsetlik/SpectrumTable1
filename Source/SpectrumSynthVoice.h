@@ -41,6 +41,33 @@ public:
     {
         allGens.pLfo0->setRate(*value);
     }
+    void setLfo0Wave(std::atomic<float>* value)
+    {
+        int choiceIndex = (int)*value;
+        switch(choiceIndex)
+        {
+            case 0:
+            {
+                allGens.pLfo0->setWaveType("Sine");
+                break;
+            }
+            case 1:
+            {
+                allGens.pLfo0->setWaveType("Saw");
+                break;
+            }
+            case 2: allGens.pLfo0->setWaveType("Triangle");
+            {
+                allGens.pLfo0->setWaveType("Triangle");
+                break;
+            }
+            case 3:
+            {
+                allGens.pLfo0->setWaveType("Square");
+                break;
+            }
+        }
+    }
     //PARAMETER INPUT FUNCTIONS
     void setVoiceP0(std::atomic<float>* value, int index)
     {
