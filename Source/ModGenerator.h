@@ -75,10 +75,16 @@ public:
         //every mod source for the synth needs to be added here like so
         gens.add(new LfoProcessor("lfo0Source"));
         pLfo0 = dynamic_cast<LfoProcessor*>(gens.getLast());
+        gens.add(new LfoProcessor("lfo1Source"));
+        pLfo1 = dynamic_cast<LfoProcessor*>(gens.getLast());
+        gens.add(new LfoProcessor("lfo2Source"));
+        pLfo2 = dynamic_cast<LfoProcessor*>(gens.getLast());
     }
     ~VoiceModGenerators() {}
     juce::OwnedArray<ModGenerator> gens;
     LfoProcessor* pLfo0;
+    LfoProcessor* pLfo1;
+    LfoProcessor* pLfo2;
 };
 
 

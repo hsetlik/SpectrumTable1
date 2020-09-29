@@ -57,6 +57,7 @@ class LfoComponent : public juce::Component
 {
 public:
     LfoComponent(juce::String desc, juce::DragAndDropContainer* parentContainer, int index);
+    LfoComponent(juce::String desc, juce::DragAndDropContainer* parentContainer, int index, juce::Colour modSourceColor);
     ~LfoComponent() {}
     void resized() override;
     void paint(juce::Graphics& g) override;
@@ -76,6 +77,18 @@ public:
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> waveformAttach;
     ColorCreator color;
     
+};
+
+class TabbedLfoComponent : public juce::TabbedComponent
+{
+public:
+    //functions
+    TabbedLfoComponent(juce::DragAndDropContainer* container);
+    ~TabbedLfoComponent() {}
+    void attachAllToTree(juce::AudioProcessorValueTreeState* target);
+    //data
+    juce::OwnedArray<LfoComponent> contents;
+    ColorCreator color;
 };
 
 

@@ -38,9 +38,28 @@ public:
         }
     }
     
-    void setLfo0Rate(std::atomic<float>* value)
+    void setLfoRate(std::atomic<float>* value, int index)
     {
-        allGens.pLfo0->setRate(*value);
+        LfoProcessor* thisLfo;
+        switch(index)
+        {
+            case 0:
+            {
+                thisLfo = allGens.pLfo0;
+                break;
+            }
+            case 1:
+            {
+                thisLfo = allGens.pLfo1;
+                break;
+            }
+            case 2:
+            {
+                thisLfo = allGens.pLfo2;
+                break;
+            }
+        }
+        thisLfo->setRate(*value);
     }
     void setOscLevel(std::atomic<float>* value, int n)
     {
@@ -50,29 +69,48 @@ public:
     {
         mixer.masterLevel = *value;
     }
-    void setLfo0Wave(std::atomic<float>* value)
+    void setLfoWave(std::atomic<float>* value, int n)
     {
+        LfoProcessor* thisLfo;
+        switch(n)
+        {
+            case 0:
+            {
+                thisLfo = allGens.pLfo0;
+                break;
+            }
+            case 1:
+            {
+                thisLfo = allGens.pLfo1;
+                break;
+            }
+            case 2:
+            {
+                thisLfo = allGens.pLfo2;
+                break;
+            }
+        }
         int choiceIndex = (int)*value;
         switch(choiceIndex)
         {
             case 0:
             {
-                allGens.pLfo0->setWaveType("Sine");
+                thisLfo->setWaveType("Sine");
                 break;
             }
             case 1:
             {
-                allGens.pLfo0->setWaveType("Saw");
+                thisLfo->setWaveType("Saw");
                 break;
             }
-            case 2: allGens.pLfo0->setWaveType("Triangle");
+            case 2:
             {
-                allGens.pLfo0->setWaveType("Triangle");
+                thisLfo->setWaveType("Triangle");
                 break;
             }
             case 3:
             {
-                allGens.pLfo0->setWaveType("Square");
+                thisLfo->setWaveType("Square");
                 break;
             }
         }

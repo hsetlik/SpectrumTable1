@@ -22,10 +22,10 @@
 class ModParentComponent  : public juce::Component, public juce::DragAndDropContainer, public juce::Slider::Listener
 {
 public:
-    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc, this, this), lfo0("lfo0Source", this, 0), audioProcessor(proc)
+    ModParentComponent(SpectrumTable1AudioProcessor& proc) : oscSet(proc, this, this), lfoSet(this), audioProcessor(proc)
     {
         addAndMakeVisible(&oscSet);
-        addAndMakeVisible(&lfo0);
+        addAndMakeVisible(&lfoSet);
         addAndMakeVisible(&mixer);
     }
     ~ModParentComponent() override;
@@ -34,13 +34,13 @@ public:
     void attachAllChildrenToTree(juce::AudioProcessorValueTreeState* state)
     {
         oscSet.attachAllToTree(state);
-        lfo0.attachToTree(state);
+        lfoSet.attachAllToTree(state);
         mixer.attachToTree(state);
     }
     void sliderValueChanged(juce::Slider* slider) override;
     juce::DragAndDropTarget::SourceDetails getActiveSourceDetails(ModDestination* dest);
     OscillatorSet oscSet;
-    LfoComponent lfo0;
+    TabbedLfoComponent lfoSet;
     OscMixerComponent mixer;
     juce::String activeDesc;
     SpectrumTable1AudioProcessor& audioProcessor;

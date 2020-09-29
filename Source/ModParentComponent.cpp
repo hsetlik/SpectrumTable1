@@ -26,7 +26,7 @@ void ModParentComponent::resized()
 {
     int n = getHeight() / 24;
     oscSet.setBounds(0, 0, getWidth() - (5 * n),18 * n);
-    lfo0.setBounds(0, 18 * n, 8 * n, 6.25 * n);
+    lfoSet.setBounds(0, 18 * n, 8 * n, 6.25 * n);
     mixer.setBounds(getWidth() - (5 * n), 0, 5 * n, 18 * n);
 }
 
@@ -37,7 +37,7 @@ juce::DragAndDropTarget::SourceDetails ModParentComponent::getActiveSourceDetail
     juce::Component* activeComp;
     if(activeDesc == "lfo0Comp")
     {
-        activeComp = &lfo0;
+        //activeComp = &lfo0;
     }
     else
     {

@@ -16,6 +16,10 @@ void ModDestProcessor::addSource(juce::String sourceId)
     //IMPORTANT every mod source named in the AllGenerators class needs to be checked in an else if statement here
     if(sourceId == "lfo0Source")
         sources.add(new ModSourceProcessor(sourceId, allGens->pLfo0));
+    else if(sourceId == "lfo1Source")
+        sources.add(new ModSourceProcessor(sourceId, allGens->pLfo1));
+    else if(sourceId == "lfo2Source")
+        sources.add(new ModSourceProcessor(sourceId, allGens->pLfo2));
 }
 
 void ModDestProcessor::removeSource(juce::String sourceStr)
