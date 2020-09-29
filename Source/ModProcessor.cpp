@@ -18,6 +18,15 @@ void ModDestProcessor::addSource(juce::String sourceId)
         sources.add(new ModSourceProcessor(sourceId, allGens->pLfo0));
 }
 
+void ModDestProcessor::removeSource(juce::String sourceStr)
+{
+    for(int i = 0; i < sources.size(); ++i)
+    {
+        if(sources[i]->sourceId == sourceStr)
+            sources.remove(i);
+    }
+}
+
 float ModDestProcessor::getParameterDelta()
 {
     float sum = 0.0f;

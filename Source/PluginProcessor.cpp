@@ -291,6 +291,28 @@ void SpectrumTable1AudioProcessor::addVoiceModulation(juce::String sourceId, juc
     }
 }
 
+void SpectrumTable1AudioProcessor::removeVoiceModulation(juce::String sourceId, juce::String destId, int index, juce::Component* slider)
+{
+    MultiDepthSlider* mSlider = dynamic_cast<MultiDepthSlider*>(slider);
+    for(int voice = 0; voice < synth.getNumVoices(); ++voice)
+    {
+    SpectrumVoice* currentVoice = dynamic_cast<SpectrumVoice*>(synth.getVoice(voice));
+    //grab the correct oscillator for the index
+    HarmonicOscillator* currentOsc = currentVoice->allOscs[index];
+    //grab the correct ModDestProcessor for the ID
+    ModDestProcessor* currentDest;
+        if(destId == "p0Dest")
+            currentDest = &currentOsc->p0ModProc;
+        else if(destId == "p1Dest")
+            currentDest = &currentOsc->p1ModProc;
+        else if(destId == "nDest")
+            currentDest = &currentOsc->nModProc;
+        else
+            currentDest = nullptr;
+    currentDest->removeSource(sourceId);
+    }
+}
+
 void SpectrumTable1AudioProcessor::setModDepth(juce::String sourceId, juce::String destId, int index, float value)
 {
     //loop through all the modulations until one with matching sourceId, destId, and index is found

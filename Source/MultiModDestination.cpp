@@ -23,6 +23,10 @@ void MultiDepthSlider::mouseDown(const juce::MouseEvent &e)
     if(e.mods.isRightButtonDown())
     {
         printf("right click\n");
+        DepthSlider* currentSlider = dynamic_cast<DepthSlider*>(getCurrentContentComponent());
+        juce::String source = currentSlider->sourceId;
+        juce::String dest = currentSlider->destId;
+        audioProcessor.removeVoiceModulation(source, dest, oscIndex, this);
         removeTab(getCurrentTabIndex());
     }
 }

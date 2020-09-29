@@ -24,6 +24,7 @@ public:
     ~ModSourceProcessor() {}
     void setDepth(float newDepth)
     {
+        //issue: this is never getting called
         depth = newDepth;
     }
     float getNextSampleValue()
@@ -50,6 +51,7 @@ public:
     
     //this calls to the
     void addSource(juce::String sourceId);
+    void removeSource(juce::String sourceId);
     float getParameterDelta(); //returns the value to be added to the target parameter value this sample
     //data
     VoiceModGenerators* allGens;

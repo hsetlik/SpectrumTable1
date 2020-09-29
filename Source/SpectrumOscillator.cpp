@@ -33,6 +33,8 @@ maxHarmonicCount(maxOvertones)
 }
 void HarmonicOscillator::applyModulations()
 {
+    if(p0ModProc.sources.size() != 0)
+    {
     auto p0Delta = p0ModProc.getParameterDelta();
     auto maxIncrease = 15.0 - currentP0;
     auto maxDecrease = currentP0;
@@ -40,7 +42,9 @@ void HarmonicOscillator::applyModulations()
         currentP0 += (maxIncrease * p0Delta);
     else
         currentP0 += (maxDecrease * p0Delta);
-    
+    }
+    if(p1ModProc.sources.size() != 0)
+    {
     auto p1Delta = p1ModProc.getParameterDelta();
     auto p1maxIncrease = 15.0 - currentP1;
     auto p1maxDecrease = currentP1;
@@ -48,7 +52,9 @@ void HarmonicOscillator::applyModulations()
         currentP1 += (p1maxIncrease * p1Delta);
     else
         currentP1 += (p1maxDecrease * p1Delta);
-    
+    }
+    if(nModProc.sources.size() != 0)
+    {
     auto nDelta = nModProc.getParameterDelta();
     auto nMaxIncrease = 40.0 - currentHarmonicCount;
     auto nMaxDecrease = currentHarmonicCount;
@@ -56,6 +62,7 @@ void HarmonicOscillator::applyModulations()
         currentHarmonicCount += (nMaxIncrease * nDelta);
     else
         currentHarmonicCount += (nMaxDecrease * nDelta);
+    }
     
     
 }

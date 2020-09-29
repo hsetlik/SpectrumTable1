@@ -56,6 +56,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     void setModDepth(juce::String sourceId, juce::String destId, int index, float value);
     void addVoiceModulation(juce::String sourceId, juce::String destId, int index);
+    void removeVoiceModulation(juce::String sourceId, juce::String destId, int index, juce::Component* mSlider);
     
     SpectrumVoice* thisVoice;
     juce::AudioProcessorValueTreeState tree;

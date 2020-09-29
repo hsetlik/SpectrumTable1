@@ -38,12 +38,13 @@ class MultiDepthSlider : public juce::TabbedComponent
 {
 public:
     //functions
-    MultiDepthSlider(juce::String dest, bool isVertical, int index, juce::Slider::Listener* lstnr) :
+    MultiDepthSlider(juce::String dest, bool isVertical, int index, juce::Slider::Listener* lstnr, SpectrumTable1AudioProcessor& proc) :
     juce::TabbedComponent( (isVertical) ? juce::TabbedButtonBar::TabsAtRight : juce::TabbedButtonBar::TabsAtBottom),
     parentIsVertical(isVertical),
     oscIndex(index),
     listener(lstnr),
-    destId(dest)
+    destId(dest),
+    audioProcessor(proc)
     {
         tabBkgnd = color.RGBColor(110, 110, 110);
         setTabBarDepth(6);
@@ -54,6 +55,7 @@ public:
     juce::Slider::Listener* listener;
     //data
     bool parentIsVertical;
+    SpectrumTable1AudioProcessor& audioProcessor;
     juce::OwnedArray<juce::String> sourceIds;
     juce::String destId;
     juce::OwnedArray<DepthSlider> depthSliders;
@@ -72,7 +74,7 @@ public:
     destSliderIsVertical(isVertical),
     paramMin(min),
     paramMax(max),
-    depthSliderSet(idStr, isVertical, index, lstnr),
+    depthSliderSet(idStr, isVertical, index, lstnr, proc),
     destId(idStr),
     oscIndex(index),
     listener(lstnr)
@@ -91,6 +93,23 @@ public:
         g.setColour(juce::Colours::darkgrey);
         g.fillRect(paramSlider.getBounds());
         
+    }
+    void mouseDown(const juce::MouseEvent &e) override
+    {
+        printf("mouse clicked in MultiDest\n");
+        if(e.mods.isRightButtonDown())
+        {
+            if(depthSliderSet.contains(e.getPosition()))
+            {
+                int index = depthSliderSet.getCurrentTabIndex();
+                juce::String source = *depthSliderSet.sourceIds[index];
+                
+                audioProcessor.removeVoiceModulation(source, destId, index, &depthSliderSet);
+                depthSliderSet.sourceIds.remove(index);
+                depthSliderSet.depthSliders.remove(index);
+                depthSliderSet.removeTab(index);
+            }
+        }
     }
     //dragdroptarget virtual functions
     void itemDropped(const juce::DragAndDropTarget::SourceDetails &dragSourceDetails) override;
