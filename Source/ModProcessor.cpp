@@ -22,8 +22,11 @@ void ModDestProcessor::removeSource(juce::String sourceStr)
 {
     for(int i = 0; i < sources.size(); ++i)
     {
+        //issue: this is never evaluating true
         if(sources[i]->sourceId == sourceStr)
+        {
             sources.remove(i);
+        }
     }
 }
 

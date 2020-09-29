@@ -17,7 +17,7 @@ class ModSourceProcessor //each destination that a generator has creates its own
 {
 public:
     //functions
-    ModSourceProcessor(juce::String source, ModGenerator* gen) : generator(gen)
+    ModSourceProcessor(juce::String source, ModGenerator* gen) : generator(gen) , sourceId(source)
     {
         
     }
@@ -45,7 +45,7 @@ public:
     //functions
     ModDestProcessor(juce::String dId, int index, VoiceModGenerators* gens) : destId(dId), oscIndex(index), allGens(gens)
     {
-       
+        printf("Dest processor creaded: %s\n", dId.toRawUTF8());
     }
     ~ModDestProcessor() {}
     
