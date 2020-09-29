@@ -12,6 +12,7 @@
 #include <JuceHeader.h>
 #include "SpectrumOscillator.h"
 #include "ModProcessor.h"
+#include "MixProcessor.h"
 
 class SpectrumSound : public juce::SynthesiserSound
 {
@@ -40,6 +41,14 @@ public:
     void setLfo0Rate(std::atomic<float>* value)
     {
         allGens.pLfo0->setRate(*value);
+    }
+    void setOscLevel(std::atomic<float>* value, int n)
+    {
+        mixer.setOscLevel(*value, n);
+    }
+    void setMasterLevel(std::atomic<float>* value)
+    {
+        mixer.masterLevel = *value;
     }
     void setLfo0Wave(std::atomic<float>* value)
     {
@@ -175,19 +184,24 @@ public:
     //===============================================
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
     {
+        /*
         for(int n = 0; n > 3; ++n)
         {
             allOscs[n]->applyModulations();
         }
+         */
         for(int i = 0; i < numSamples; ++i)
         {
             float sum = 0.0f;
             for(int g = 0; g < 3; ++g)
             {
+                allOscs[g]->applyModulations();
                 float newPreEnv = allOscs[g]->getNextSample();
+                newPreEnv *= mixer.getOscLevel(g);
                 sum += (allOscs[g]->envelope1.adsr(newPreEnv, allOscs[g]->envelope1.trigger));
             }
             newSample = sum / 3.0f;
+            newSample *= mixer.masterLevel;
             for(int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
             {
                 outputBuffer.addSample(channel, startSample, newSample);
@@ -204,4 +218,5 @@ public:
     float newSample = 0.0f;
     juce::OwnedArray<HarmonicOscillator> allOscs;
     VoiceModGenerators allGens;
+    MixerProcessor mixer;
 };

@@ -14,7 +14,7 @@
 
 #include "OscillatorGroup.h"
 #include "ModDestination.h"
-
+#include "MixerComponent.h"
 
 //==============================================================================
 /*
@@ -26,6 +26,7 @@ public:
     {
         addAndMakeVisible(&oscSet);
         addAndMakeVisible(&lfo0);
+        addAndMakeVisible(&mixer);
     }
     ~ModParentComponent() override;
     void paint (juce::Graphics&) override;
@@ -34,11 +35,13 @@ public:
     {
         oscSet.attachAllToTree(state);
         lfo0.attachToTree(state);
+        mixer.attachToTree(state);
     }
     void sliderValueChanged(juce::Slider* slider) override;
     juce::DragAndDropTarget::SourceDetails getActiveSourceDetails(ModDestination* dest);
     OscillatorSet oscSet;
     LfoComponent lfo0;
+    OscMixerComponent mixer;
     juce::String activeDesc;
     SpectrumTable1AudioProcessor& audioProcessor;
     

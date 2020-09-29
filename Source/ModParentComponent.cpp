@@ -19,14 +19,15 @@ ModParentComponent::~ModParentComponent()
 
 void ModParentComponent::paint (juce::Graphics& g)
 {
-   
+
 }
 
 void ModParentComponent::resized()
 {
     int n = getHeight() / 24;
-    oscSet.setBounds(0, 0, getWidth(),18 * n);
+    oscSet.setBounds(0, 0, getWidth() - (5 * n),18 * n);
     lfo0.setBounds(0, 18 * n, 8 * n, 6.25 * n);
+    mixer.setBounds(getWidth() - (5 * n), 0, 5 * n, 18 * n);
 }
 
 juce::DragAndDropTarget::SourceDetails ModParentComponent::getActiveSourceDetails(ModDestination* dest)

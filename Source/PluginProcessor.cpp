@@ -36,6 +36,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     juce::String sName = "Oscillator " + iStr + " Sustain";
     juce::String rId = "releaseParam" + iStr;
     juce::String rName = "Oscillator " + iStr + " Release";
+    juce::String oscLevelId = "osc" + iStr + "LevelParam";
+    juce::String oscLevelName = "Oscillator " + iStr + " level";
+        
+    layout.add(std::make_unique<juce::AudioParameterFloat>(oscLevelId, oscLevelName, 0.0, 1.0, 1.0));
     
     layout.add(std::make_unique<juce::AudioParameterFloat>(aId, aName, 1.0, 15000.0, 25.0));
     layout.add(std::make_unique<juce::AudioParameterFloat>(dId, dName, 1.0, 15000.0, 65.0));
@@ -49,6 +53,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout()
     layout.add(std::make_unique<juce::AudioParameterBool>(p1SnapId, p1SnapName, false));
     layout.add(std::make_unique<juce::AudioParameterBool>(p0SnapId, p0SnapName, false));
     }
+    auto masterLevelId = "masterLevelParam";
+    auto masterLevelName = "Master Level";
+    layout.add(std::make_unique<juce::AudioParameterFloat>(masterLevelId, masterLevelName, 0.0, 1.0, 0.6));
     auto lfoId = "lfoRateParam0";
     auto lfoName = "LFO 1 Frequency";
     juce::NormalisableRange<float> rateRange(0.1f, 20.0f, 0.01f, 0.3f);
@@ -221,6 +228,7 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 juce::String p1SnapName = "p1SnapParam" + nStr;
                 juce::String lfoRateName = "lfoRateParam0";
                 juce::String lfoTypeName = "lfoWaveParam0";
+                juce::String oscLevelName = "osc" + nStr + "LevelParam";
                
                 thisVoice->setVoiceP1Snap(tree.getRawParameterValue(p1SnapName), n);
                 thisVoice->setAttack(tree.getRawParameterValue(aName), n);
@@ -230,6 +238,7 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 //make synthVoice functions to set modSource parameters
                 thisVoice->setLfo0Rate(tree.getRawParameterValue(lfoRateName));
                 thisVoice->setLfo0Wave(tree.getRawParameterValue(lfoTypeName));
+                thisVoice->setOscLevel(tree.getRawParameterValue(oscLevelName), n);
                 
                 thisVoice->setNumHarmonics(tree.getRawParameterValue(nName), n);
                 thisVoice->setVoiceP0(tree.getRawParameterValue(p0Name), n);
@@ -237,6 +246,7 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
                 thisVoice->setAlgChoice(tree.getRawParameterValue(algName), n);
                 
             }
+            thisVoice->setMasterLevel(tree.getRawParameterValue("masterLevelParam"));
         }
     }
     buffer.clear();

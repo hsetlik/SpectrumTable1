@@ -33,6 +33,7 @@
               file="Source/MultiModDestination.h"/>
       </GROUP>
       <GROUP id="{4AD4ACAA-F15F-8D2D-5B7D-DDE745D75487}" name="SoundProcessing">
+        <FILE id="skfGFG" name="MixProcessor.h" compile="0" resource="0" file="Source/MixProcessor.h"/>
         <FILE id="scCsoT" name="SpectrumOscillator.cpp" compile="1" resource="0"
               file="Source/SpectrumOscillator.cpp"/>
         <FILE id="QVLf1S" name="SpectrumOscillator.h" compile="0" resource="0"
@@ -41,6 +42,10 @@
               file="Source/SpectrumSynthVoice.h"/>
       </GROUP>
       <GROUP id="{F2BF066C-B7BA-F8BC-0C53-301FB7CC2209}" name="ChildComponents">
+        <FILE id="zXj9Za" name="MixerComponent.cpp" compile="1" resource="0"
+              file="Source/MixerComponent.cpp"/>
+        <FILE id="OixbTS" name="MixerComponent.h" compile="0" resource="0"
+              file="Source/MixerComponent.h"/>
         <FILE id="nIzQOG" name="EnvelopeSliderSet.cpp" compile="1" resource="0"
               file="Source/EnvelopeSliderSet.cpp"/>
         <FILE id="UHDU0w" name="EnvelopeSliderSet.h" compile="0" resource="0"
