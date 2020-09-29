@@ -32,7 +32,7 @@ public:
         return (generator->getNextSampleValue()) * depth;
     }
     //data
-    float depth = 1.0f;
+    float depth = 0.0f;
     juce::String sourceId;
     ModGenerator* generator;
 };

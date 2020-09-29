@@ -53,5 +53,15 @@ void ModParentComponent::sliderValueChanged(juce::Slider* slider)
     int changedIndex = dSlider->oscIndex;
     juce::String newDestId = dSlider->destId;
     juce::String newSourceId = dSlider ->sourceId;
-    audioProcessor.setModDepth(newSourceId, newDestId, changedIndex, dSlider->getValue());
+    auto rawValue = dSlider->getValue();
+    float adjustedValue;
+    if(rawValue >= 0)
+        adjustedValue = pow(4.5f, 10.0 * (rawValue - 1));
+    else
+    {
+        auto rawAbs = std::fabs(rawValue);
+        auto adjustedAbs = pow(8.0f, 3.0 * (rawAbs - 1));
+        adjustedValue = -1.0f * adjustedAbs;
+    }
+    audioProcessor.setModDepth(newSourceId, newDestId, changedIndex, adjustedValue);
 }
