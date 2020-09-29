@@ -234,10 +234,15 @@ void SpectrumTable1AudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
         auto p1Par = "p1Param" + iStr;
         auto algPar = "algParam" + iStr;
         
-        allGraphValues[i].setNumHarmonics(tree.getRawParameterValue(nPar));
-        allGraphValues[i].setP0(tree.getRawParameterValue(p0Par));
-        allGraphValues[i].setP1(tree.getRawParameterValue(p1Par));
-        allGraphValues[i].setAlgSelection(tree.getRawParameterValue(algPar));
+        float oscN = thisVoice->allOscs[i]->currentHarmonicCount;
+        float oscP0 = thisVoice->allOscs[i]->currentP0;
+        float oscP1 = thisVoice->allOscs[i]->currentP1;
+        bool oscSecondAlg = thisVoice->allOscs[i]->secondAlgOn;
+        
+        allGraphValues[i].setNumHarmonics(oscN);
+        allGraphValues[i].setP0(oscP0);
+        allGraphValues[i].setP1(oscP1);
+        allGraphValues[i].setAlgSelection(oscSecondAlg);
         allGraphValues[i].setMasterVol(masterLevel);
         allGraphValues[i].setDisplayPoints();
     }

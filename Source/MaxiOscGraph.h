@@ -26,24 +26,21 @@ public:
     //functions
     GraphValueSet(int maxOvertones);
     ~GraphValueSet() {}
-    void setNumHarmonics(std::atomic<float>* value)
+    void setNumHarmonics(float value)
     {
-        currentNumHarmonics = *value;
+        currentNumHarmonics = value;
     }
-    void setP0(std::atomic<float>* value)
+    void setP0(float value)
     {
-        currentP0 = *value;
+        currentP0 = value;
     }
-    void setP1(std::atomic<float>* value)
+    void setP1(float value)
     {
-        if(secondAlgOn)
-            currentP1 = floor(*value);
-        else
-            currentP1 = *value;
+        currentP1 = value;
     }
-    void setAlgSelection(std::atomic<float>* value)
+    void setAlgSelection(bool value)
     {
-        secondAlgOn = (bool)(*value);
+        secondAlgOn = value;
     }
     void setPitch(float pitch)
     {
